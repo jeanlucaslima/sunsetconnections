@@ -1,50 +1,455 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Speakers from "../components/Speakers.astro";
-import Waitlist from "../components/Waitlist.astro";
-import Ecosystem from "../components/Ecosystem.astro";
-import Team from "../components/Team.astro";
-import Footer from "../components/Footer.astro";
+
+const team = [
+  {
+    name: "Eduardo Kupper",
+    initials: "EK",
+    company: "Airborne Ventures",
+    linkedin: "https://www.linkedin.com/in/eduardokupper/",
+  },
+  {
+    name: "Jean Lucas Lima",
+    initials: "JL",
+    image: "/team/jeanlucas.jpeg",
+    company: "ConfrariaTech",
+    linkedin: "https://www.linkedin.com/in/jeanlucaslima",
+  },
+];
+
+const ecosystem = [
+  { name: "Airborne Ventures", logo: "/logos/airborne-full.svg", noFilter: true },
+  { name: "ConfrariaTech", logo: "/logos/confrariatech.svg" },
+];
+
+const year = new Date().getFullYear();
 ---
 
-<Layout title="L8P Brazil — Brazilian Builders in Silicon Valley">
+<Layout title="Airborne Day — CEOs & Entrepreneurs in Manhattan">
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "L8P Brazil",
-    "description": "A private gathering of Brazilian founders and engineers in Silicon Valley. Small rooms, real conversations, builders only.",
+    "name": "Airborne Day",
+    "description": "An invite-only half-day gathering of CEOs and entrepreneurs in Manhattan. Small rooms, real conversations, leaders only.",
     "location": {
       "@type": "Place",
-      "name": "Circuit Launch",
-      "url": "https://circuitlaunch.com/",
+      "name": "Manhattan",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "599 Fairchild Dr",
-        "addressLocality": "Mountain View",
-        "addressRegion": "CA",
-        "postalCode": "94043",
+        "addressLocality": "New York",
+        "addressRegion": "NY",
         "addressCountry": "US"
       }
     },
-    "startDate": "2026-04-09",
-    "endDate": "2026-04-10",
-    "organizer": {
-      "@type": "Organization",
-      "name": "L8P",
-      "url": "https://l8p.tech"
-    }
+    "startDate": "2026-05-14T14:00:00-04:00",
+    "endDate": "2026-05-14T18:00:00-04:00",
+    "organizer": [
+      { "@type": "Organization", "name": "Airborne Ventures", "url": "https://www.airborne.ventures/" },
+      { "@type": "Organization", "name": "ConfrariaTech" }
+    ]
   })} />
-  <Header />
-  <main>
-    <Hero />
-    <About />
-    <Speakers />
-    <Team />
-    <Waitlist />
-    <Ecosystem />
-  </main>
-  <Footer />
+
+  <div class="page relative">
+    <!-- Background pattern -->
+    <div class="pointer-events-none fixed inset-0 overflow-hidden">
+      <div
+        class="absolute inset-0"
+        style="opacity: 0.09; background-image: linear-gradient(var(--ab-accent) 1px, transparent 1px), linear-gradient(90deg, var(--ab-accent) 1px, transparent 1px); background-size: 60px 60px;"
+      ></div>
+      <div class="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-3xl" style="border: 1px solid rgba(67, 110, 182, 0.14);"></div>
+      <div class="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-2xl" style="border: 1px solid rgba(67, 110, 182, 0.09);"></div>
+      <div class="absolute left-1/4 top-1/3 h-[500px] w-[500px] rounded-full blur-[120px]" style="background: rgba(67, 110, 182, 0.06);"></div>
+      <div class="absolute bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full blur-[100px]" style="background: rgba(184, 134, 11, 0.04);"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl" style="border-bottom: 1px solid var(--ab-border); background: rgba(236, 237, 245, 0.85);">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <a href="/" class="group">
+          <img src="/logos/airborne-full.svg" alt="Airborne" class="h-8 w-auto" />
+        </a>
+
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="#about" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-muted);">About</a>
+          <a href="#team" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-muted);">Team</a>
+          <a href="#ecosystem" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-muted);">Ecosystem</a>
+          <a href="/sponsordeck" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-muted);">Sponsors</a>
+          <span
+            class="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-500 cursor-default opacity-50"
+            style="border: 1px solid var(--ab-accent); background: rgba(67, 110, 182, 0.08); color: var(--ab-accent);"
+          >
+            Request Invite
+          </span>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative flex min-h-screen items-center overflow-hidden pt-20">
+      <div class="relative mx-auto max-w-7xl px-6 py-24">
+        <div class="max-w-4xl">
+          <div class="animate-fade-up mb-8" style="animation-delay: 0.1s;">
+            <span
+              class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-500 tracking-wide uppercase"
+              style="border: 1px solid var(--ab-border); background: var(--ab-surface); color: var(--ab-muted);"
+            >
+              <span class="inline-block h-1.5 w-1.5 rounded-full animate-pulse" style="background: var(--ab-accent);"></span>
+              CEOs + Entrepreneurs · Invite Only
+            </span>
+          </div>
+
+          <h1
+            class="animate-fade-up font-display text-6xl font-800 leading-[0.95] tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
+            style="animation-delay: 0.2s;"
+          >
+            <span style="color: var(--ab-text);">Airborne</span><br />
+            <span style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Day</span>
+          </h1>
+
+          <p
+            class="animate-fade-up mt-8 max-w-xl text-lg leading-relaxed sm:text-xl"
+            style="animation-delay: 0.35s; color: var(--ab-muted);"
+          >
+            An invite-only half-day gathering of CEOs and entrepreneurs in the heart of Manhattan. Small rooms. Real conversations. Leaders only.
+          </p>
+
+          <div class="animate-fade-up mt-10 inline-flex flex-col items-start rounded-2xl px-8 py-5" style="animation-delay: 0.45s; background: rgba(67, 110, 182, 0.06); border: 1px solid rgba(67, 110, 182, 0.12);">
+            <span class="font-display text-2xl font-800 sm:text-3xl" style="color: var(--ab-text);">May 14, 2026</span>
+            <span class="mt-1 font-display text-base font-600" style="color: var(--ab-accent);">2pm &ndash; 6pm &middot; Manhattan, NYC</span>
+          </div>
+
+          <p class="animate-fade-up mt-6 text-xs" style="animation-delay: 0.55s; color: var(--ab-light-muted);">
+            Organized by
+            <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="font-600 transition-opacity hover:opacity-70" style="color: var(--ab-accent);">Airborne Ventures</a>
+            &
+            <span class="font-600" style="color: var(--ab-muted);">ConfrariaTech</span>
+          </p>
+        </div>
+
+        <div
+          class="animate-slide-in-right absolute bottom-24 right-6 hidden flex-col items-end gap-1 lg:flex"
+          style="animation-delay: 0.6s;"
+        >
+          <span class="font-display text-7xl font-800 leading-none" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">14</span>
+          <span class="text-xs tracking-widest uppercase" style="color: var(--ab-light-muted);">May 2026</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="relative py-32" style="border-top: 1px solid var(--ab-border);">
+      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-16 lg:grid-cols-12">
+          <div class="lg:col-span-4">
+            <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">About the Event</span>
+            <h2 class="mt-4 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--ab-text);">
+              One afternoon.<br />
+              <span style="color: var(--ab-muted);">Real conversations.</span>
+            </h2>
+          </div>
+
+          <div class="space-y-8 lg:col-span-7 lg:col-start-6">
+            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+              Airborne Day is a curated, invite-only half-day event bringing together CEOs, founders, and entrepreneurs in Manhattan. No panels, no keynotes — just focused conversations between people building and leading companies at the frontier of technology and business.
+            </p>
+            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+              We keep the group intimate so every conversation matters. If you're leading a company, scaling a product, or building something ambitious, this is your room.
+            </p>
+
+            <div class="mt-12 grid gap-4 sm:grid-cols-3">
+              <div class="ab-card rounded-xl p-6">
+                <span class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1</span>
+                <p class="mt-2 text-base" style="color: var(--ab-light-muted);">Half-day of immersion</p>
+              </div>
+              <div class="ab-card rounded-xl p-6">
+                <span class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CEOs</span>
+                <p class="mt-2 text-base" style="color: var(--ab-light-muted);">Founders & entrepreneurs</p>
+              </div>
+              <div class="ab-card rounded-xl p-6">
+                <span class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NYC</span>
+                <p class="mt-2 text-base" style="color: var(--ab-light-muted);">Manhattan &middot; invite only</p>
+              </div>
+            </div>
+
+            <!-- Format -->
+            <div class="mt-16">
+              <h3 class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Format</h3>
+              <div class="mt-6">
+                <div class="ab-card rounded-xl p-6" style="border-left: 4px solid var(--ab-accent);">
+                  <span class="font-display text-lg font-800" style="color: var(--ab-text);">
+                    May 14th &middot; 2pm to 6pm &middot; Manhattan
+                  </span>
+                  <ul class="mt-4 space-y-2">
+                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                      Networking & welcome reception
+                    </li>
+                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                      Talks from industry leaders and founders
+                    </li>
+                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                      CEO & entrepreneur roundtables
+                    </li>
+                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                      Space for direct conversations
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Who Attends -->
+            <div class="mt-16">
+              <h3 class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Who Attends</h3>
+              <p class="mt-6 text-base leading-relaxed" style="color: var(--ab-light-muted);">
+                We curate for leaders — people actively building products, scaling companies, and making decisions that shape industries.
+              </p>
+              <ul class="mt-4 space-y-2">
+                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                  CEOs and founders building venture-backed companies
+                </li>
+                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                  Entrepreneurs scaling products across markets
+                </li>
+                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                  Technical leaders at the frontier of AI and software
+                </li>
+                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                  Investors and operators with deep industry ties
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Speakers -->
+    <section class="relative py-32" style="border-top: 1px solid var(--ab-border);">
+      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-16 lg:grid-cols-12">
+          <div class="lg:col-span-4">
+            <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Speaker Profile</span>
+            <h2 class="mt-4 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--ab-text);">
+              Built by<br />
+              <span style="color: var(--ab-muted);">practitioners.</span>
+            </h2>
+          </div>
+
+          <div class="space-y-8 lg:col-span-7 lg:col-start-6">
+            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+              Our speakers are not professional keynote-givers. They are CEOs, founders, and entrepreneurs who are actively building — sharing real lessons from real work. Expect raw, unfiltered takes on strategy, scaling, and the challenges of leading companies at the frontier.
+            </p>
+            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+              Past and future speakers come from companies shaping how industries evolve and businesses scale.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="relative py-24" style="border-top: 1px solid var(--ab-border);">
+      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">The Team</span>
+          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-4xl" style="color: var(--ab-text);">
+            The people behind this event.
+          </h2>
+          <p class="mt-4 text-lg" style="color: var(--ab-muted);">
+            Connecting CEOs and entrepreneurs for high-signal conversations.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 max-w-lg mx-auto">
+          {team.map((member, i) => (
+            <div
+              class="animate-fade-up ab-card rounded-xl p-6 text-center flex flex-col items-center"
+              style={`animation-delay: ${i * 100}ms`}
+            >
+              {member.image ? (
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  class="h-20 w-20 rounded-full object-cover mx-auto"
+                  style="border: 1px solid var(--ab-border);"
+                />
+              ) : (
+                <div class="flex h-20 w-20 items-center justify-center rounded-full" style="border: 1px solid var(--ab-border); background: var(--ab-raised);">
+                  <span class="font-display text-lg font-700" style="color: var(--ab-accent);">
+                    {member.initials}
+                  </span>
+                </div>
+              )}
+              <h3 class="mt-5 font-display text-lg font-700" style="color: var(--ab-text);">
+                {member.name}
+              </h3>
+              <p class="mt-1 text-sm" style="color: var(--ab-accent);">{member.company}</p>
+              {member.linkedin && (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-4 inline-flex items-center gap-1.5 text-sm transition-opacity hover:opacity-70"
+                  style="color: var(--ab-light-muted);"
+                >
+                  <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                  LinkedIn
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Ecosystem -->
+    <section id="ecosystem" class="relative py-24" style="border-top: 1px solid var(--ab-border);">
+      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Ecosystem</span>
+          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-4xl" style="color: var(--ab-text);">
+            Who's in the Room
+          </h2>
+          <p class="mt-4 text-lg" style="color: var(--ab-muted);">
+            Companies and leaders attending, supporting, and shaping Airborne Day.
+          </p>
+        </div>
+
+        <div class="mt-12 flex flex-wrap justify-center gap-4">
+          {ecosystem.map((company) => (
+            <div class="ab-card flex h-20 items-center justify-center rounded-xl px-7">
+              {company.logo ? (
+                <img src={company.logo} alt={company.name} class={`h-10 max-w-[120px] object-contain ${company.noFilter ? '' : 'confraria-logo'}`} />
+              ) : (
+                <span class="font-display text-base font-700" style="color: var(--ab-text);">{company.name}</span>
+              )}
+            </div>
+          ))}
+          <div class="flex h-20 items-center justify-center rounded-xl px-7" style="background: rgba(67, 110, 182, 0.04); border: 1px solid rgba(67, 110, 182, 0.1);">
+            <span class="font-display text-base font-600" style="color: var(--ab-light-muted);">& more</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Waitlist / CTA -->
+    <section class="relative py-32" style="border-top: 1px solid var(--ab-border);">
+      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Join Us</span>
+          <h2 class="mt-4 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--ab-text);">
+            Interested in Attending?
+          </h2>
+          <p class="mt-6 text-lg" style="color: var(--ab-muted);">
+            Airborne Day is invitation-only. If you're a CEO, founder, or entrepreneur and want to be part of the conversation, get in touch.
+          </p>
+          <div class="mt-10">
+            <span
+              class="inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-600 cursor-default opacity-50"
+              style="background: var(--ab-accent); color: white;"
+            >
+              Coming Soon
+            </span>
+          </div>
+
+          <div class="mt-8 flex flex-col items-center gap-2 text-sm" style="color: var(--ab-light-muted);">
+            <span class="font-display font-700" style="color: var(--ab-text);">May 14, 2026</span>
+            <span>Manhattan, NYC &middot; 2pm&ndash;6pm</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="border-top: 1px solid var(--ab-border); background: var(--ab-surface);">
+      <div class="mx-auto max-w-7xl px-6 py-16">
+        <div class="flex flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
+          <div class="max-w-xs">
+            <a href="/">
+              <img src="/logos/airborne-full.svg" alt="Airborne" class="h-7 w-auto" />
+            </a>
+            <p class="mt-4 text-sm leading-relaxed" style="color: var(--ab-light-muted);">
+              Connecting CEOs and entrepreneurs for high-signal conversations in Manhattan.
+            </p>
+          </div>
+
+          <div class="flex gap-16">
+            <div>
+              <h4 class="text-xs font-600 tracking-widest uppercase" style="color: var(--ab-muted);">Event</h4>
+              <ul class="mt-4 space-y-3">
+                <li><a href="#about" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-light-muted);">About</a></li>
+                <li><a href="#team" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-light-muted);">Team</a></li>
+                <li><a href="/sponsordeck" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-light-muted);">Sponsors</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-xs font-600 tracking-widest uppercase" style="color: var(--ab-muted);">Connect</h4>
+              <ul class="mt-4 space-y-3">
+                <li>
+                  <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-light-muted);">airborne.ventures</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-16 flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row" style="border-top: 1px solid var(--ab-border);">
+          <p class="text-xs" style="color: var(--ab-light-muted);">
+            &copy; {year} Airborne Ventures. All rights reserved.
+          </p>
+          <p class="text-xs" style="color: rgba(139, 141, 160, 0.6);">
+            Built with Astro
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <style>
+    .page {
+      --ab-bg: #ECEDF5;
+      --ab-surface: #F5F6FA;
+      --ab-raised: #FFFFFF;
+      --ab-border: #D4D6E0;
+      --ab-text: #2D3042;
+      --ab-muted: #3D4055;
+      --ab-light-muted: #6B6E82;
+      --ab-accent: #436eb6;
+      --ab-accent-dim: #224d7e;
+      --ab-gold: #9A7209;
+    }
+
+    .page {
+      background-color: var(--ab-bg);
+    }
+
+    .ab-card {
+      background: var(--ab-surface);
+      border: 1px solid var(--ab-border);
+    }
+
+    .confraria-logo {
+      filter: brightness(0.25);
+    }
+  </style>
 </Layout>
