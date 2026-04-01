@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Speakers from "../components/Speakers.astro";
+import Waitlist from "../components/Waitlist.astro";
+import Ecosystem from "../components/Ecosystem.astro";
+import Team from "../components/Team.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="L8P Brazil — Brazilian Builders in Silicon Valley">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "L8P Brazil",
+    "description": "A private gathering of Brazilian founders and engineers in Silicon Valley. Small rooms, real conversations, builders only.",
+    "location": {
+      "@type": "Place",
+      "name": "Circuit Launch",
+      "url": "https://circuitlaunch.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "599 Fairchild Dr",
+        "addressLocality": "Mountain View",
+        "addressRegion": "CA",
+        "postalCode": "94043",
+        "addressCountry": "US"
+      }
+    },
+    "startDate": "2026-04-09",
+    "endDate": "2026-04-10",
+    "organizer": {
+      "@type": "Organization",
+      "name": "L8P",
+      "url": "https://l8p.tech"
+    }
+  })} />
+  <Header />
+  <main>
+    <Hero />
+    <About />
+    <Speakers />
+    <Team />
+    <Waitlist />
+    <Ecosystem />
+  </main>
+  <Footer />
+</Layout>

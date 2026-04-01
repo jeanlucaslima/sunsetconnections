@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://summit.l8p.tech/sitemap-index.xml

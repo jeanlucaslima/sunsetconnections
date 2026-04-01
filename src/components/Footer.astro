@@ -1,0 +1,83 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-edge/40 bg-surface">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="flex flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
+      <!-- Brand -->
+      <div class="max-w-xs">
+        <div class="flex items-center gap-2">
+          <div
+            class="flex h-8 w-8 items-center justify-center rounded-md border border-accent/20 bg-accent/5"
+          >
+            <span class="font-display text-xs font-800 text-accent">L8P</span>
+          </div>
+          <span class="font-display text-base font-600 text-ivory">Brazil</span>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-muted">
+          Connecting Brazilian builders with the Silicon Valley ecosystem.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex gap-16">
+        <div>
+          <h4 class="text-xs font-600 tracking-widest text-subtle uppercase">
+            Event
+          </h4>
+          <ul class="mt-4 space-y-3">
+            <li>
+              <a href="#about" class="text-sm text-muted transition-colors hover:text-ivory"
+                >About</a
+              >
+            </li>
+            <li>
+              <a href="/program" class="text-sm text-muted transition-colors hover:text-ivory"
+                >Program</a
+              >
+            </li>
+            <li>
+              <a href="/team" class="text-sm text-muted transition-colors hover:text-ivory"
+                >Team</a
+              >
+            </li>
+            <li>
+              <a href="/sponsors" class="text-sm text-muted transition-colors hover:text-ivory"
+                >Sponsors</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs font-600 tracking-widest text-subtle uppercase">
+            Connect
+          </h4>
+          <ul class="mt-4 space-y-3">
+            <li>
+              <a
+                href="https://l8p.tech"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-muted transition-colors hover:text-ivory"
+                >l8p.tech</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-edge/40 pt-8 sm:flex-row"
+    >
+      <p class="text-xs text-muted">
+        &copy; {year} L8P. All rights reserved.
+      </p>
+      <p class="text-xs text-muted/60">
+        Built with Astro
+      </p>
+    </div>
+  </div>
+</footer>

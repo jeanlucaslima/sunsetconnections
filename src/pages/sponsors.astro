@@ -1,0 +1,190 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const benefits = [
+  {
+    title: "Brand Visibility",
+    description:
+      "Your brand front and center at the event — on stage, in materials, and across our digital channels reaching the Brazilian tech community in the Valley.",
+  },
+  {
+    title: "Curated Network Access",
+    description:
+      "Connect directly with a vetted community of Brazilian founders, engineers, and operators building at the highest levels in Silicon Valley.",
+  },
+  {
+    title: "Speaking & Demo Slot",
+    description:
+      "Showcase your product or share your story with a captive audience of senior builders who value substance over hype.",
+  },
+  {
+    title: "Talent Pipeline",
+    description:
+      "Meet exceptional engineers and founders from Brazil's top talent pool — many actively exploring new opportunities in the Bay Area.",
+  },
+  {
+    title: "Logo Placement",
+    description:
+      "Featured on the event website, event signage, attendee communications, and post-event recap shared across our network.",
+  },
+  {
+    title: "VIP Access",
+    description:
+      "Reserved seats at keynote sessions and exclusive access to the post-event mixer for your team to build relationships that last.",
+  },
+];
+
+const stats = [
+  { value: "20", label: "Curated Attendees" },
+  { value: "2", label: "Days — Apr 9–10" },
+  { value: "2", label: "Cities — Palo Alto & SF" },
+];
+---
+
+<Layout
+  title="Sponsors — L8P Brazil"
+  description="Support L8P Brazil and connect your brand with the most ambitious Brazilian builders in Silicon Valley."
+>
+  <Header />
+  <main>
+    <!-- Hero header -->
+    <section class="relative border-t border-edge/40 pt-32 pb-20">
+      <div
+        class="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-accent/20 to-transparent"
+      ></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-16 lg:grid-cols-12">
+          <div class="lg:col-span-4">
+            <span
+              class="font-display text-xs font-600 tracking-widest text-accent uppercase"
+              >Sponsorship</span
+            >
+            <h1
+              class="mt-4 font-display text-4xl font-800 leading-tight tracking-tight text-ivory sm:text-5xl"
+            >
+              Support the<br />
+              <span class="text-subtle">builder network.</span>
+            </h1>
+          </div>
+
+          <div class="flex items-end lg:col-span-7 lg:col-start-6">
+            <p class="text-lg leading-relaxed text-subtle">
+              L8P Brazil brings together the most driven Brazilian founders and
+              engineers in Silicon Valley. Sponsoring means putting your brand at
+              the center of a high-signal, invite-only gathering where real
+              connections happen — no booths, no noise, just builders.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Sponsors -->
+    <section class="pb-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <span
+          class="font-display text-xs font-600 tracking-widest text-accent uppercase"
+          >Current Sponsors</span
+        >
+        <div class="mt-8 flex flex-wrap gap-4">
+          <div
+            class="animate-fade-up relative flex items-center justify-center rounded-xl border border-accent/40 bg-surface px-12 py-8 shadow-[0_0_20px_rgba(0,232,123,0.06)]"
+          >
+            <img src="/logos/glean.svg" alt="Glean" class="h-10 max-w-[140px] object-contain" />
+          </div>
+        </div>
+        <p class="mt-6 text-sm text-muted">
+          Interested in joining them?
+          <a
+            href="https://wa.me/5511958493835"
+            class="text-accent underline underline-offset-4 transition-colors hover:text-accent-dim"
+            >Become a sponsor</a
+          >
+        </p>
+      </div>
+    </section>
+
+    <!-- Why Sponsor -->
+    <section class="pb-24">
+      <div class="mx-auto max-w-7xl px-6">
+        <span
+          class="font-display text-xs font-600 tracking-widest text-accent uppercase"
+          >Why Sponsor</span
+        >
+
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            benefits.map((benefit, i) => (
+              <div
+                class="animate-fade-up rounded-xl border border-edge/60 bg-surface p-6"
+                style={`animation-delay: ${i * 100}ms`}
+              >
+                <h3 class="font-display text-lg font-800 text-ivory">
+                  {benefit.title}
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-muted">
+                  {benefit.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="relative border-t border-edge/40 py-20">
+      <div
+        class="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-accent/20 to-transparent"
+      ></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-6 sm:grid-cols-3">
+          {
+            stats.map((stat, i) => (
+              <div
+                class="animate-fade-up rounded-xl border border-edge/60 bg-surface p-6 text-center"
+                style={`animation-delay: ${i * 100}ms`}
+              >
+                <p class="font-display text-4xl font-800 text-accent">
+                  {stat.value}
+                </p>
+                <p class="mt-2 text-sm text-muted">{stat.label}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="pb-32 pt-12">
+      <div class="mx-auto max-w-7xl px-6 text-center">
+        <h2
+          class="font-display text-3xl font-800 tracking-tight text-ivory sm:text-4xl"
+        >
+          Become a Sponsor
+        </h2>
+        <p class="mx-auto mt-4 max-w-lg text-lg leading-relaxed text-subtle">
+          Interested in partnering with L8P Brazil? Let us know and we'll put
+          together a plan that fits your goals.
+        </p>
+        <div class="mt-10">
+          <a
+            href="https://wa.me/5511958493835"
+            class="inline-block rounded-lg bg-accent px-8 py-3.5 font-display font-700 text-midnight transition-all hover:shadow-[0_0_30px_rgba(0,232,123,0.2)]"
+          >
+            Get in Touch
+          </a>
+          <p class="mt-4 text-sm text-muted">
+            We'll follow up within 48 hours.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

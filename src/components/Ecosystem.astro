@@ -1,0 +1,110 @@
+---
+const featured = [
+  { name: "Confrariatech", role: "organizer", logo: "/logos/confrariatech.svg" },
+  { name: "Glean", role: "sponsor", logo: "/logos/glean.svg" },
+  { name: "Safe & Ingram Micro", role: "sponsor", logos: ["/logos/safe.svg", "/logos/ingram.png"] },
+];
+
+const others = [
+  { name: "1Password", logo: "/logos/1password.png" },
+  { name: "AWS", logo: "/logos/aws.png" },
+  { name: "Replit", logo: "/logos/replit.svg" },
+  { name: "Nubank", logo: "/logos/nubank.png" },
+  { name: "Hotmart", logo: "/logos/hotmart.png" },
+  { name: "Dotz", logo: "/logos/dotz.png" },
+  { name: "Jumpad" },
+  { name: "Localiza", logo: "/logos/localiza.png" },
+  { name: "Remessa Online", logo: "/logos/remessa-online.svg" },
+];
+
+const badgeStyles: Record<string, { border: string; text: string; bg: string; label: string }> = {
+  organizer: { border: "border-accent/40", text: "text-accent", bg: "bg-accent/10 border-accent/30", label: "Organizer" },
+  sponsor: { border: "border-accent/40 shadow-[0_0_20px_rgba(0,232,123,0.06)]", text: "text-accent", bg: "bg-accent/10 border-accent/30", label: "Sponsor" },
+};
+---
+
+<section id="sponsors" class="relative border-t border-edge/40 py-24">
+  <div
+    class="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-accent/20 to-transparent"
+  >
+  </div>
+
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <span
+        class="font-display text-xs font-600 tracking-widest text-accent uppercase"
+        >Ecosystem</span
+      >
+      <h2
+        class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight text-ivory sm:text-4xl"
+      >
+        Who's Building This
+      </h2>
+      <p class="mt-4 text-sm text-subtle">
+        Companies and communities backing the Brazilian builder network in
+        Silicon Valley.
+      </p>
+    </div>
+
+    <!-- Featured: organizers + sponsors — larger -->
+    <div class="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
+      {
+        featured.map((company, i) => {
+          const style = badgeStyles[company.role];
+          return (
+            <div
+              class={`animate-fade-up relative flex h-28 items-center justify-center rounded-xl border bg-surface px-8 py-6 ${style.border}`}
+              style={`animation-delay: ${i * 60}ms`}
+            >
+              <span class={`absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full ${style.bg} px-2.5 py-0.5 text-[10px] font-600 tracking-wider ${style.text} uppercase`}>
+                {style.label}
+              </span>
+              {company.logos ? (
+                <div class="flex items-center gap-6">
+                  {company.logos.map((logo: string) => (
+                    <img src={logo} alt={company.name} class="h-12 max-w-[120px] object-contain" />
+                  ))}
+                </div>
+              ) : company.logo ? (
+                <img src={company.logo} alt={company.name} class="h-12 max-w-[160px] object-contain" />
+              ) : (
+                <span class={`font-display text-lg font-700 ${style.text}`}>
+                  {company.name}
+                </span>
+              )}
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- Others — smaller -->
+    <div class="mx-auto mt-4 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-4">
+      {
+        others.map((company, i) => (
+          <div
+            class="animate-fade-up flex h-16 items-center justify-center rounded-xl border border-edge/60 bg-surface px-5"
+            style={`animation-delay: ${(i + featured.length) * 60}ms`}
+          >
+            {company.logo ? (
+              <img src={company.logo} alt={company.name} class="h-7 max-w-[110px] object-contain" />
+            ) : (
+              <span class="font-display text-sm font-700 text-ivory">
+                {company.name}
+              </span>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-center text-sm text-muted">
+      Want to participate?
+      <a
+        href="https://wa.me/5511958493835"
+        class="text-accent underline underline-offset-4 transition-colors hover:text-accent-dim"
+        >Get in touch</a
+      >
+    </p>
+  </div>
+</section>
