@@ -1,6 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
+const speakers = [
+  { name: "Eduardo Küpper", org: "Airborne", initials: "EK" },
+  { name: "Gabriela Lima", org: "BTG", initials: "GL" },
+  { name: "Thaisa Kaszek", org: "Kaszek", initials: "TK" },
+  { name: "Maria Fornea", org: "Endeavor", initials: "MF" },
+];
+
+// TODO: replace with real logo assets in public/logos/ for Fuerza Studio, EBB, GestãoRH, Select
+const partners = [
+  { name: "Airborne", logo: "/logos/airborne-full.svg" },
+  { name: "Fuerza Studio", logo: null },
+  { name: "EBB", logo: null },
+  { name: "GestãoRH Startups", logo: null },
+  { name: "Select", logo: null },
+];
+
+const year = new Date().getFullYear();
+
 const mailSubject = encodeURIComponent("Sunset Connections 2026 — Quero participar");
 const mailBody = encodeURIComponent("Olá Marcone,\n\nTenho interesse em participar do Sunset Connections 2026 no Rio.");
 const mailto = `mailto:marcone@fuerzastudio.com.br?subject=${mailSubject}&body=${mailBody}`;
@@ -25,130 +43,482 @@ const mailto = `mailto:marcone@fuerzastudio.com.br?subject=${mailSubject}&body=$
         "addressCountry": "BR"
       }
     },
-    "organizer": {
-      "@type": "Organization",
-      "name": "Fuerza Studio",
-      "url": "https://fuerzastudio.com.br"
-    }
+    "organizer": { "@type": "Organization", "name": "Fuerza Studio", "url": "https://fuerzastudio.com.br" }
   })} />
 
-  <main class="relative">
+  <div class="page relative overflow-x-hidden">
 
-    <!-- ═══ HERO ═══ -->
-    <section class="relative overflow-hidden min-h-screen flex items-center">
-      <!-- Decorative arcs -->
-      <div class="absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-[var(--color-accent-dim)] opacity-90"></div>
-      <div class="absolute right-[-140px] top-[60px] h-[440px] w-[440px] rounded-full bg-[var(--color-accent)]"></div>
-      <div class="absolute -right-24 -bottom-48 h-[400px] w-[400px] rounded-full bg-[var(--color-accent-dim)] opacity-80"></div>
-      <div class="absolute right-[100px] -bottom-36 h-[360px] w-[360px] rounded-full bg-[var(--color-accent)]"></div>
-
-      <div class="relative mx-auto w-full max-w-6xl px-6 py-24 sm:py-32">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-4 py-1.5 text-xs font-mono tracking-[0.2em] uppercase text-[var(--color-accent)]">
-            <span class="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-shimmer"></span>
-            08 · Jun · 2026 — Rio de Janeiro
-          </div>
-
-          <h1 class="mt-8 font-display font-extrabold uppercase leading-[0.95] text-[clamp(2.75rem,9vw,7rem)] tracking-tight animate-hero-reveal">
-            <span class="block">Sunset</span>
-            <span class="flex items-center gap-4 md:gap-6">
-              <span>Connections</span>
-              <svg viewBox="0 0 120 60" class="inline-block h-[0.7em] w-auto flex-shrink-0" aria-hidden="true">
-                <path d="M 10 55 A 40 40 0 0 1 90 55 Z" fill="var(--color-accent)" />
-                <path d="M 60 55 A 40 40 0 0 1 110 55 Z" fill="var(--color-accent-dim)" opacity="0.9" />
-              </svg>
-            </span>
-          </h1>
-
-          <p class="mt-10 font-display text-3xl sm:text-4xl text-[var(--color-accent)] font-semibold animate-fade-up" style="animation-delay: 0.3s;">
-            A mudança começa aqui.
-          </p>
-
-          <p class="mt-6 max-w-xl text-lg text-[var(--color-muted)] animate-fade-up" style="animation-delay: 0.5s;">
-            O encontro presencial premium que conecta founders, investidores e líderes
-            do ecossistema de inovação. Curadoria real, conversas próximas, negócios que acontecem.
-          </p>
-
-          <div class="mt-12 flex flex-wrap gap-4 animate-fade-up" style="animation-delay: 0.7s;">
-            <a href={mailto}
-              class="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-7 py-3.5 font-semibold text-white transition hover:bg-[var(--color-accent-dim)]">
-              Quero participar
-              <span class="transition group-hover:translate-x-1">→</span>
-            </a>
-            <a href="/sponsordeck"
-              class="inline-flex items-center gap-2 rounded-full border border-[var(--color-ivory)]/30 px-7 py-3.5 font-semibold text-[var(--color-ivory)] transition hover:border-[var(--color-ivory)] hover:bg-[var(--color-ivory)]/5">
-              Patrocinar evento
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ SOCIAL PROOF STRIP ═══ -->
-    <section class="border-y border-[var(--color-edge)]/60 py-16 sm:py-20">
-      <div class="mx-auto max-w-6xl px-6">
-        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Última edição · Porto Alegre 2026</p>
-        <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <p class="font-display font-extrabold text-5xl sm:text-6xl text-[var(--color-accent)] leading-none">377</p>
-            <p class="mt-3 text-sm text-[var(--color-muted)]">inscritos de 4 países</p>
-          </div>
-          <div>
-            <p class="font-display font-extrabold text-5xl sm:text-6xl text-[var(--color-accent)] leading-none">75%</p>
-            <p class="mt-3 text-sm text-[var(--color-muted)]">C-Levels, sócios e heads</p>
-          </div>
-          <div>
-            <p class="font-display font-extrabold text-5xl sm:text-6xl text-[var(--color-accent)] leading-none">R$ 6,5M</p>
-            <p class="mt-3 text-sm text-[var(--color-muted)]">captados via conexões do evento</p>
-          </div>
-          <div>
-            <p class="font-display font-extrabold text-5xl sm:text-6xl text-[var(--color-accent)] leading-none">1 sala</p>
-            <p class="mt-3 text-sm text-[var(--color-muted)]">curadoria real, não é evento aberto</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ CLOSING CTA ═══ -->
-    <section class="relative overflow-hidden py-28 sm:py-36">
-      <div class="absolute -left-32 top-[15%] h-[300px] w-[300px] rounded-full bg-[var(--color-accent)] opacity-85"></div>
-      <div class="absolute left-[100px] top-[35%] h-[220px] w-[220px] rounded-full bg-[var(--color-accent-dim)] opacity-75"></div>
-
-      <div class="relative mx-auto max-w-5xl px-6">
-        <h2 class="font-display font-extrabold text-5xl sm:text-7xl leading-[0.95]">
-          Vamos começar a<br />
-          <span class="text-[var(--color-accent)]">mudança</span> juntos?
-        </h2>
-        <p class="mt-8 max-w-xl text-lg text-[var(--color-muted)]">
-          Vagas limitadas e curadoria. Se você quer estar na sala, ou quer colocar sua marca perto de quem decide, a conversa começa agora.
-        </p>
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a href={mailto} class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-7 py-3.5 font-semibold text-white transition hover:bg-[var(--color-accent-dim)]">
-            Quero participar →
-          </a>
-          <a href="/sponsordeck" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-ivory)]/30 px-7 py-3.5 font-semibold transition hover:border-[var(--color-ivory)]">
-            Ver mídia kit & cotas
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ FOOTER ═══ -->
-    <footer class="border-t border-[var(--color-edge)]/60 py-10">
-      <div class="mx-auto max-w-6xl px-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div class="flex items-center gap-3">
+    <!-- ═══ Header ═══ -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl" style="border-bottom: 1px solid rgba(237,30,63,0.12); background: rgba(20,24,61,0.85);">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+        <a href="/" class="group inline-flex items-center gap-3">
           <svg viewBox="0 0 60 30" class="h-6 w-auto" aria-hidden="true">
             <path d="M 5 28 A 20 20 0 0 1 45 28 Z" fill="var(--color-accent)" />
             <path d="M 30 28 A 20 20 0 0 1 55 28 Z" fill="var(--color-accent-dim)" opacity="0.9" />
           </svg>
-          <span class="font-display font-bold uppercase tracking-wider text-sm">Sunset Connections</span>
-        </div>
-        <div class="flex items-center gap-6 text-xs text-[var(--color-muted)]">
-          <a href="/sponsordeck" class="hover:text-[var(--color-ivory)] transition">Mídia kit</a>
-          <span>© 2026 · Realização: Fuerza Studio</span>
+          <span class="font-display text-sm font-extrabold uppercase tracking-wider text-[var(--color-ivory)]">Sunset Connections</span>
+        </a>
+
+        <nav class="hidden sm:flex items-center gap-2">
+          <a href="#sobre" class="hud-link">Sobre</a>
+          <a href="#palestrantes" class="hud-link">Palestrantes</a>
+          <a href="#parceiros" class="hud-link">Parceiros</a>
+          <a href="/sponsordeck" class="hud-link hud-link-accent">Mídia Kit</a>
+        </nav>
+
+        <a href="/sponsordeck" class="sm:hidden hud-link hud-link-accent">Mídia Kit</a>
+      </div>
+    </header>
+
+    <!-- ═══ Hero ═══ -->
+    <section class="hero-section relative flex flex-col pt-20">
+      <!-- Signature arcs, right side -->
+      <div class="pointer-events-none absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-[var(--color-accent-dim)] opacity-90"></div>
+      <div class="pointer-events-none absolute right-[-140px] top-[60px] h-[440px] w-[440px] rounded-full bg-[var(--color-accent)]"></div>
+      <div class="pointer-events-none absolute -right-24 -bottom-48 h-[400px] w-[400px] rounded-full bg-[var(--color-accent-dim)] opacity-80"></div>
+      <div class="pointer-events-none absolute right-[100px] -bottom-36 h-[360px] w-[360px] rounded-full bg-[var(--color-accent)]"></div>
+
+      <div class="flex-1 min-h-[60px]"></div>
+      <div class="relative mx-auto max-w-7xl px-6 pb-12 md:pb-24 w-full flex-shrink-0">
+        <div class="max-w-5xl">
+          <div class="overflow-hidden">
+            <h1 class="animate-hero-reveal font-display leading-[0.85] tracking-tighter" style="animation-delay: 0.2s;">
+              <span class="block text-[clamp(3.5rem,11vw,14rem)] font-extrabold uppercase whitespace-nowrap text-[var(--color-ivory)]">SUNSET</span>
+              <span class="block text-[clamp(2rem,6vw,7rem)] font-semibold mt-1 md:mt-2 text-[var(--color-accent)]">Connections</span>
+            </h1>
+          </div>
+
+          <p class="animate-fade-up mt-6 md:mt-10 max-w-lg text-lg md:text-xl leading-relaxed text-[var(--color-muted)]" style="animation-delay: 0.5s;">
+            <span class="text-[var(--color-accent)] font-semibold">A mudança começa aqui.</span>
+            Encontro presencial premium que conecta founders, investidores e líderes do ecossistema de inovação.
+          </p>
+
+          <div class="animate-fade-up mt-6 md:mt-10 inline-flex flex-col items-start cockpit-card rounded-lg px-6 py-4 md:px-8 md:py-6" style="animation-delay: 0.6s;">
+            <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">Data do evento</span>
+            <span class="font-mono text-3xl font-bold mt-2 sm:text-4xl text-[var(--color-ivory)]">08 JUN · 2026</span>
+            <div class="flex items-center gap-3 mt-3">
+              <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-subtle)]">Noite</span>
+              <span class="h-1 w-1 rounded-full bg-[var(--color-accent)]"></span>
+              <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-subtle)]">Rio de Janeiro · RJ</span>
+            </div>
+            <span class="mt-3 font-mono text-[10px] text-[var(--color-subtle)]">Local a confirmar · convites por curadoria</span>
+          </div>
+
+          <p class="animate-fade-up mt-4 md:mt-8 text-xs font-mono text-[var(--color-subtle)]" style="animation-delay: 0.7s;">
+            Realização por
+            <a href="https://fuerzastudio.com.br" target="_blank" rel="noopener noreferrer" class="font-bold transition-opacity hover:opacity-70 text-[var(--color-accent)]">Fuerza Studio</a>
+          </p>
         </div>
       </div>
-    </footer>
 
-  </main>
+      <!-- Dashed divider -->
+      <div class="absolute bottom-0 left-0 right-0 h-px" style="background: repeating-linear-gradient(90deg, rgba(237,30,63,0.15) 0, rgba(237,30,63,0.15) 8px, transparent 8px, transparent 20px);"></div>
+    </section>
+
+    <!-- ═══ Tour Banner (Sunset Tour context) ═══ -->
+    <section class="relative overflow-hidden py-16" style="background: linear-gradient(135deg, #1a1f4f 0%, #12163a 40%, #0e1130 100%);">
+      <div class="pointer-events-none absolute -left-20 top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full blur-[100px]" style="background: rgba(237, 30, 63, 0.18);"></div>
+      <div class="pointer-events-none absolute -right-10 -top-10 h-[250px] w-[250px] rounded-full blur-[90px]" style="background: rgba(176, 24, 50, 0.12);"></div>
+
+      <div class="relative mx-auto max-w-5xl px-6">
+        <div class="flex flex-col items-center gap-6 text-center lg:flex-row lg:text-left lg:gap-12">
+          <div class="flex-1">
+            <span class="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]/70">Sunset Tour</span>
+            <h2 class="mt-2 font-display text-2xl font-extrabold tracking-tight sm:text-3xl" style="background: linear-gradient(135deg, #FFF5F6, #F75E77); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              De Porto Alegre para o Rio.
+            </h2>
+            <div class="mx-auto mt-3 h-px w-16 lg:mx-0" style="background: linear-gradient(to right, rgba(237,30,63,0.5), rgba(247,94,119,0.3), transparent);"></div>
+            <p class="mt-4 text-base leading-relaxed text-[var(--color-muted)]">
+              O Sunset Connections começou em Porto Alegre e reuniu 377 inscritos de 4 países.
+              Em 2026, a sala vai para o Rio de Janeiro — mesma curadoria, mesma densidade de conversas,
+              novo ponto de encontro para quem movimenta o ecossistema.
+            </p>
+          </div>
+          <div class="shrink-0">
+            <div class="inline-flex flex-col items-center rounded-lg px-6 py-4" style="background: rgba(237,30,63,0.08); border: 1px solid rgba(237,30,63,0.22);">
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-accent)]/80">Jun 2026</span>
+              <span class="mt-1 font-display text-lg font-extrabold text-[var(--color-ivory)]">Rio de Janeiro</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 left-0 right-0 h-px" style="background: repeating-linear-gradient(90deg, rgba(237,30,63,0.18) 0, rgba(237,30,63,0.18) 8px, transparent 8px, transparent 20px);"></div>
+    </section>
+
+    <!-- ═══ About / Sobre ═══ -->
+    <section id="sobre" class="relative py-36">
+      <div class="contour-divider"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-16 lg:grid-cols-12">
+          <div class="lg:col-span-4">
+            <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">Sobre o evento</span>
+            <h2 class="mt-6 font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--color-ivory)]">
+              Uma noite.<br />
+              <span class="text-[var(--color-muted)]">Conexões reais.</span>
+            </h2>
+          </div>
+
+          <div class="space-y-10 lg:col-span-7 lg:col-start-6">
+            <p class="text-lg leading-relaxed text-[var(--color-muted)]">
+              O Sunset Connections é um evento exclusivo e por curadoria, reunindo founders, investidores,
+              executivos e líderes do ecossistema de inovação em um ambiente descontraído e altamente estratégico.
+              Sem palestras engessadas, sem formato de congresso — só o que importa: pessoas certas, no momento certo.
+            </p>
+            <p class="text-lg leading-relaxed text-[var(--color-muted)]">
+              Mantemos a sala pequena o bastante para que cada conversa importe. Se você lidera uma empresa,
+              está levantando capital, ou construindo algo ambicioso, este é o seu encontro.
+            </p>
+
+            <!-- Stat blocks -->
+            <div class="mt-14 grid gap-5 sm:grid-cols-3">
+              <div class="cockpit-card rounded-lg p-8">
+                <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase block text-[var(--color-accent)]">Inscritos</span>
+                <span class="font-mono text-3xl font-bold block mt-2 text-[var(--color-ivory)]">377</span>
+                <p class="mt-3 font-mono text-xs uppercase tracking-wider text-[var(--color-subtle)]">última edição · POA 2026</p>
+              </div>
+              <div class="cockpit-card rounded-lg p-8">
+                <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase block text-[var(--color-accent)]">Liderança</span>
+                <span class="font-mono text-3xl font-bold block mt-2 text-[var(--color-ivory)]">75%</span>
+                <p class="mt-3 font-mono text-xs uppercase tracking-wider text-[var(--color-subtle)]">C-levels, sócios & heads</p>
+              </div>
+              <div class="cockpit-card rounded-lg p-8">
+                <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase block text-[var(--color-accent)]">Captado</span>
+                <span class="font-mono text-3xl font-bold block mt-2 text-[var(--color-ivory)]">R$ 6,5M</span>
+                <p class="mt-3 font-mono text-xs uppercase tracking-wider text-[var(--color-subtle)]">via conexões do evento</p>
+              </div>
+            </div>
+
+            <!-- Format -->
+            <div class="mt-20">
+              <h3 class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">O que acontece</h3>
+              <div class="mt-8">
+                <div class="cockpit-card rounded-lg p-8" style="border-left: 2px solid var(--color-accent);">
+                  <span class="font-display text-lg font-extrabold text-[var(--color-ivory)]">
+                    08 de Junho · Noite · Rio de Janeiro
+                  </span>
+                  <ul class="mt-6 space-y-4">
+                    {[
+                      "Conexões estratégicas entre participantes",
+                      "Apresentação de startups e negócios",
+                      "Interação direta com investidores",
+                      "Ambiente propício para parcerias e novos projetos",
+                    ].map((it, i) => (
+                      <li class="flex items-start gap-3 text-base text-[var(--color-muted)]">
+                        <span class={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]`} style={`animation-delay: ${i * 0.2}s;`}></span>
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Who attends -->
+            <div class="mt-20">
+              <h3 class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">Quem participa</h3>
+              <p class="mt-8 text-base leading-relaxed text-[var(--color-muted)]">
+                Curadoria real para líderes — pessoas ativamente construindo produtos, escalando empresas
+                e tomando decisões que movem o ecossistema.
+              </p>
+              <ul class="mt-6 space-y-4">
+                {[
+                  "Fundadores de startups em tração e crescimento",
+                  "Investidores-anjo, VCs e corporate venture",
+                  "Executivos e heads de empresas conectadas à inovação",
+                  "Parceiros estratégicos do ecossistema (comunidades, hubs, empresas)",
+                ].map((it) => (
+                  <li class="flex items-start gap-3 text-base text-[var(--color-muted)]">
+                    <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Speakers framer ═══ -->
+    <section class="relative py-36">
+      <div class="contour-divider"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-16 lg:grid-cols-12">
+          <div class="lg:col-span-4">
+            <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">Palestrantes</span>
+            <h2 class="mt-6 font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--color-ivory)]">
+              Quem move<br />
+              <span class="text-[var(--color-muted)]">o ecossistema.</span>
+            </h2>
+          </div>
+
+          <div class="space-y-10 lg:col-span-7 lg:col-start-6">
+            <p class="text-lg leading-relaxed text-[var(--color-muted)]">
+              Nossos palestrantes não são "professional keynote speakers". São fundadores e operadores
+              ativamente construindo — compartilhando lições reais de trabalho real. Conversas sem filtro
+              sobre estratégia, escala, captação e os desafios de liderar no limite do possível.
+            </p>
+            <p class="text-lg leading-relaxed text-[var(--color-muted)]">
+              Vieram de Airborne, BTG, Kaszek, Endeavor — e a lista de 2026 está sendo montada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Palestrantes grid ═══ -->
+    <section id="palestrantes" class="relative py-36">
+      <div class="contour-divider"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">Edição anterior</span>
+          <h2 class="mt-6 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl text-[var(--color-ivory)]">
+            Quem já passou pelo palco.
+          </h2>
+          <p class="mt-6 text-lg text-[var(--color-muted)]">
+            Sunset Connections 2026 — Porto Alegre / RS.
+          </p>
+        </div>
+
+        {/* TODO: replace initials placeholders with real photos in /public/speakers/ */}
+        <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+          {speakers.map((s) => (
+            <div class="cockpit-card rounded-xl p-8 text-center flex flex-col items-center transition-all duration-300 hover:scale-[1.02]">
+              <div class="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-dim)]">
+                <span class="font-display text-lg font-bold text-white">{s.initials}</span>
+              </div>
+              <h3 class="mt-6 font-display text-lg font-bold text-[var(--color-ivory)]">
+                {s.name}
+              </h3>
+              <p class="mt-1 text-sm font-mono text-[var(--color-accent)]">{s.org}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Parceiros / Ecosystem ═══ -->
+    <section id="parceiros" class="relative py-36">
+      <div class="contour-divider"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">Parceiros</span>
+          <h2 class="mt-6 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl text-[var(--color-ivory)]">
+            Quem está na sala.
+          </h2>
+          <p class="mt-6 text-lg text-[var(--color-muted)]">
+            Empresas e marcas apoiando, participando e construindo o Sunset.
+          </p>
+        </div>
+
+        {/* TODO: add logo SVGs for Fuerza Studio, EBB, GestãoRH, Select to /public/logos/ */}
+        <div class="mt-16 flex flex-wrap justify-center gap-5">
+          {partners.map((p) => (
+            <div class="cockpit-card flex h-24 items-center justify-center rounded-xl px-8 transition-all duration-300 hover:scale-[1.02]">
+              {p.logo ? (
+                <img src={p.logo} alt={p.name} class="h-10 max-w-[140px] object-contain" />
+              ) : (
+                <span class="font-display text-base font-bold uppercase tracking-wider text-[var(--color-ivory)]">{p.name}</span>
+              )}
+            </div>
+          ))}
+          <div class="flex h-24 items-center justify-center rounded-xl px-8" style="background: rgba(237,30,63,0.05); border: 1px solid rgba(237,30,63,0.15);">
+            <span class="font-mono text-sm font-bold uppercase tracking-wider text-[var(--color-subtle)]">& mais</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA ═══ -->
+    <section class="relative py-40">
+      <div class="contour-divider"></div>
+
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-accent)]">Vamos juntos?</span>
+          <h2 class="mt-6 font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--color-ivory)]">
+            Interessado em participar?
+          </h2>
+          <p class="mt-8 text-lg text-[var(--color-muted)]">
+            O Sunset Connections é por convite. Se você é founder, investidor, executivo ou quer
+            colocar sua marca dentro da sala, fale com a gente.
+          </p>
+          <div class="mt-12 flex flex-wrap justify-center gap-4">
+            <a href={mailto} class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-dim)]">
+              Quero participar →
+            </a>
+            <a href="/sponsordeck" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-ivory)]/30 px-8 py-3.5 text-sm font-semibold text-[var(--color-ivory)] transition hover:border-[var(--color-ivory)]">
+              Ver mídia kit & cotas
+            </a>
+          </div>
+
+          <div class="mt-10 flex flex-col items-center gap-3 font-mono text-sm text-[var(--color-subtle)]">
+            <span class="font-bold text-base text-[var(--color-ivory)]">08 DE JUNHO DE 2026</span>
+            <span class="text-xs uppercase tracking-wider">Rio de Janeiro · Noite · Convites por curadoria</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Footer ═══ -->
+    <footer class="relative overflow-hidden border-t border-[var(--color-edge)]/40">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <!-- Realização -->
+        <div class="text-center">
+          <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-ivory)]/35">Realização</span>
+          <div class="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:justify-center sm:gap-12">
+            <a href="https://fuerzastudio.com.br" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-70">
+              <span class="font-display text-xl font-extrabold uppercase tracking-wider text-[var(--color-ivory)]">Fuerza Studio</span>
+            </a>
+            <span class="hidden sm:block h-8 w-px bg-[var(--color-ivory)]/10"></span>
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 60 30" class="h-6 w-auto" aria-hidden="true">
+                <path d="M 5 28 A 20 20 0 0 1 45 28 Z" fill="var(--color-accent)" />
+                <path d="M 30 28 A 20 20 0 0 1 55 28 Z" fill="var(--color-accent-dim)" opacity="0.9" />
+              </svg>
+              <span class="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-ivory)]/70">Sunset Connections</span>
+            </div>
+          </div>
+          <p class="mx-auto mt-10 max-w-md text-sm leading-relaxed text-[var(--color-ivory)]/35">
+            Conectando founders, investidores e líderes do ecossistema de inovação — onde as coisas acontecem.
+          </p>
+        </div>
+
+        <!-- Dashed divider -->
+        <div class="my-16 h-px" style="background: repeating-linear-gradient(90deg, rgba(237,30,63,0.15) 0, rgba(237,30,63,0.15) 6px, transparent 6px, transparent 16px); mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, transparent 100%);"></div>
+
+        <!-- Link columns -->
+        <div class="flex flex-wrap justify-center gap-12 sm:gap-20">
+          <div>
+            <h4 class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-ivory)]/40">Evento</h4>
+            <ul class="mt-5 space-y-3">
+              <li><a href="#sobre" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">Sobre</a></li>
+              <li><a href="#palestrantes" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">Palestrantes</a></li>
+              <li><a href="#parceiros" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">Parceiros</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-ivory)]/40">Patrocínio</h4>
+            <ul class="mt-5 space-y-3">
+              <li><a href="/sponsordeck" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">Mídia Kit</a></li>
+              <li><a href="/sponsordeck#cotas" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">Cotas</a></li>
+              <li><a href="/sponsordeck#contato" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">Contato</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-ivory)]/40">Conectar</h4>
+            <ul class="mt-5 space-y-3">
+              <li><a href={mailto} class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">E-mail</a></li>
+              <li><a href="https://wa.me/5551992300046" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">WhatsApp</a></li>
+              <li><a href="https://fuerzastudio.com.br" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70 text-[var(--color-ivory)]/30">fuerzastudio.com.br</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-16 pt-8 text-center border-t border-[var(--color-ivory)]/5">
+          <p class="font-mono text-xs text-[var(--color-ivory)]/20">
+            © {year} Sunset Connections · Realização: Fuerza Studio
+          </p>
+        </div>
+      </div>
+
+      <!-- Accent line -->
+      <div class="flex justify-center mb-6">
+        <div class="h-12 w-px" style="background: linear-gradient(180deg, rgba(237,30,63,0.4) 0%, transparent 100%);"></div>
+      </div>
+
+      <!-- Massive watermark -->
+      <div class="pb-10 text-center select-none overflow-hidden" aria-hidden="true">
+        <span class="font-display text-[clamp(4rem,12vw,10rem)] font-extrabold tracking-[0.3em] uppercase text-[var(--color-ivory)]/[0.04]">SUNSET</span>
+      </div>
+    </footer>
+  </div>
+
+  <style>
+    .page {
+      background-color: var(--color-midnight);
+    }
+
+    .hero-section {
+      min-height: 100svh;
+      min-height: 100dvh;
+    }
+
+    /* HUD nav link */
+    .hud-link {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-ivory);
+      opacity: 0.7;
+      padding: 6px 14px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .hud-link:hover {
+      opacity: 1;
+      border-color: rgba(237,30,63,0.3);
+    }
+    .hud-link-accent {
+      color: var(--color-accent);
+      opacity: 1;
+      border-color: rgba(237,30,63,0.4);
+    }
+    .hud-link-accent:hover {
+      background: var(--color-accent);
+      color: #fff;
+      border-color: var(--color-accent);
+    }
+
+    /* Cockpit card — dark surface with accent targeting brackets */
+    .cockpit-card {
+      background: rgba(27,31,72,0.4);
+      border: 1px solid var(--color-edge);
+      position: relative;
+    }
+    .cockpit-card::before,
+    .cockpit-card::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: var(--color-accent);
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+    }
+    .cockpit-card::before {
+      top: -1px;
+      left: -1px;
+      border-top: 1.5px solid;
+      border-left: 1.5px solid;
+    }
+    .cockpit-card::after {
+      bottom: -1px;
+      right: -1px;
+      border-bottom: 1.5px solid;
+      border-right: 1.5px solid;
+    }
+    .cockpit-card:hover::before,
+    .cockpit-card:hover::after {
+      opacity: 0.9;
+    }
+
+    /* Contour divider between sections */
+    .contour-divider {
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: repeating-linear-gradient(90deg, rgba(237,30,63,0.15) 0, rgba(237,30,63,0.15) 6px, transparent 6px, transparent 16px);
+    }
+  </style>
 </Layout>
