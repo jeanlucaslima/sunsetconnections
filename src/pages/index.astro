@@ -367,7 +367,23 @@ const mailto = `mailto:marcone@fuerzastudio.com.br?subject=${mailSubject}&body=$
 
     <!-- ═══ Footer ═══ -->
     <footer class="relative overflow-hidden border-t border-[var(--color-edge)]/40">
-      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+      <!-- Setting sun -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 z-0">
+        <!-- Outer halo -->
+        <div
+          class="absolute left-1/2 h-[1100px] w-[1100px] -translate-x-1/2 rounded-full blur-[140px]"
+          style="bottom: -680px; background: radial-gradient(circle, rgba(237,30,63,0.35) 0%, rgba(237,30,63,0.15) 40%, transparent 70%);"
+        >
+        </div>
+        <!-- Sun disc -->
+        <div
+          class="absolute left-1/2 h-[720px] w-[720px] -translate-x-1/2 rounded-full"
+          style="bottom: -420px; background: radial-gradient(circle, #FF5A3C 0%, #ED1E3F 28%, #B01832 55%, rgba(176,24,50,0.4) 72%, transparent 85%);"
+        >
+        </div>
+      </div>
+
+      <div class="relative z-10 mx-auto max-w-7xl px-6 py-20 md:py-28">
         <!-- Realização -->
         <div class="text-center">
           <span class="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--color-ivory)]/35">Realização</span>
@@ -429,13 +445,13 @@ const mailto = `mailto:marcone@fuerzastudio.com.br?subject=${mailSubject}&body=$
       </div>
 
       <!-- Accent line -->
-      <div class="flex justify-center mb-6">
+      <div class="relative z-10 flex justify-center mb-6">
         <div class="h-12 w-px" style="background: linear-gradient(180deg, rgba(237,30,63,0.4) 0%, transparent 100%);"></div>
       </div>
 
-      <!-- Massive watermark -->
-      <div class="pb-10 text-center select-none overflow-hidden" aria-hidden="true">
-        <span class="font-display text-[clamp(4rem,12vw,10rem)] font-extrabold tracking-[0.3em] uppercase text-[var(--color-ivory)]/[0.04]">SUNSET</span>
+      <!-- Massive watermark over the setting sun -->
+      <div class="relative z-10 pb-10 text-center select-none overflow-hidden" aria-hidden="true">
+        <span class="font-display text-[clamp(4rem,12vw,10rem)] font-extrabold tracking-[0.3em] uppercase text-[var(--color-ivory)]/25">SUNSET</span>
       </div>
     </footer>
   </div>
