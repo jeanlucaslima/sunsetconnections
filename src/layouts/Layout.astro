@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title,
-  description = "Airborne Day. An invite-only full-day gathering of CEOs and entrepreneurs in New York City. Real conversations, leaders only.",
+  description = "Sunset Connections — evento exclusivo de networking que conecta empreendedores, investidores, executivos e líderes do ecossistema de inovação. 08 de Junho de 2026, Rio de Janeiro.",
   ogImage = "/og-image.png",
   type = "website",
 } = Astro.props;
@@ -20,7 +20,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
@@ -28,7 +28,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#F0F2F8" />
+    <meta name="theme-color" content="#14183D" />
     <link rel="canonical" href={canonicalURL.href} />
 
     <meta property="og:title" content={title} />
@@ -36,7 +36,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL.href} />
     <meta property="og:image" content={ogImageURL.href} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="pt_BR" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -46,7 +46,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
       rel="stylesheet"
     />
 

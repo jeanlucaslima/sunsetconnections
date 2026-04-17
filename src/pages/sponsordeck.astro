@@ -1,529 +1,519 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const organizers = [
+const speakers = [
+  { name: "Eduardo Küpper", org: "Airborne", initials: "EK" },
+  { name: "Gabriela Lima", org: "BTG", initials: "GL" },
+  { name: "Thaisa Kaszek", org: "Kaszek", initials: "TK" },
+  { name: "Maria Fornea", org: "Endeavor", initials: "MF" },
+];
+
+// TODO: replace with real logo assets in public/logos/ for Fuerza Studio, EBB, GestãoRH, Select
+const partners = [
+  { name: "Airborne", logo: "/logos/airborne-full.svg" },
+  { name: "Fuerza Studio", logo: null },
+  { name: "EBB — Experience Beyond Business", logo: null },
+  { name: "GestãoRH Startups", logo: null },
+  { name: "Select", logo: null },
+];
+
+const tiers = [
   {
-    name: "Eduardo Kupper",
-    initials: "EK",
-    image: "/team/kupper.jpeg",
-    company: "Airborne Ventures",
-    linkedin: "https://www.linkedin.com/in/eduardokupper/",
+    name: "Bronze",
+    subtitle: "Startups",
+    price: "R$ 1.500",
+    tagline: "Entrada no ecossistema + branding qualificado",
+    highlight: false,
+    perks: [
+      "Logo nos materiais digitais do evento",
+      "Menção nas redes sociais (1 post)",
+      "Exposição da marca no telão / backdrop",
+      "2 convites para o evento",
+      "Inclusão no mailing pós-evento",
+    ],
   },
   {
-    name: "Jean Lucas Lima",
-    initials: "JL",
-    image: "/team/jeanlucas.jpeg",
-    company: "ConfrariaTech",
-    linkedin: "https://www.linkedin.com/in/jeanlucaslima",
+    name: "Prata",
+    subtitle: null,
+    price: "R$ 10.000",
+    tagline: "Presença forte + relacionamento direto",
+    highlight: false,
+    perks: [
+      "Tudo da cota Bronze",
+      "3 convites para o evento",
+      "1 ativação simples no evento (brinde, sampling)",
+      "Logo com maior destaque nos materiais",
+      "Menção no palco durante o evento",
+      "Acesso à lista de participantes",
+    ],
+  },
+  {
+    name: "Ouro",
+    subtitle: null,
+    price: "R$ 15.000",
+    tagline: "Posicionamento estratégico + geração de negócios",
+    highlight: false,
+    perks: [
+      "Tudo da cota Prata",
+      "5 convites para o evento",
+      "Fala rápida no evento (pitch de 2–3 min)",
+      "Branding em materiais físicos (pulseiras, copos)",
+      "Destaque nas redes sociais (2 a 3 posts)",
+      "Inclusão em conteúdos oficiais (vídeo / cobertura)",
+    ],
+  },
+  {
+    name: "Master",
+    subtitle: "poucos slots",
+    price: "R$ 30.000",
+    tagline: "Posicionamento dominante",
+    highlight: true,
+    perks: [
+      "Tudo da cota Ouro",
+      "Naming rights: Sunset Connections by [Marca]",
+      "6 convites para o evento",
+      "Abertura oficial do evento",
+      "Branding principal em TODOS os materiais",
+      "Co-criação do evento (influência no público)",
+      "Acesso direto a investidores e convidados estratégicos",
+      "Conteúdo exclusivo pós-evento (leads + mídia)",
+    ],
+  },
+  {
+    name: "Diamante",
+    subtitle: null,
+    price: "R$ 50.000",
+    tagline: "Destaque de primeiro nível",
+    highlight: false,
+    perks: [
+      "Tudo da cota Master",
+      "Destaque primeiro nível em toda a comunicação",
+      "7 convites para o evento",
+      "Espaço para apresentação ou ativação da marca",
+      "Inserção prioritária em materiais físicos e digitais",
+    ],
   },
 ];
 
-const ecosystem = [
-  { name: "Airborne Ventures", logo: "/logos/airborne-full.svg", noFilter: true },
-  { name: "ConfrariaTech", logo: "/logos/confrariatech.svg" },
-  { name: "Clara", logo: "/logos/clara.svg", url: "https://www.clara.com/" },
-  { name: "bycoders", logo: "/logos/bycoders.svg", url: "https://bycoders.co/" },
-  { name: "Doutor AI", logo: "/logos/doutor-ai.png", url: "https://www.doutor-ai.com/", noFilter: true },
+const audience = [
+  { label: "C-Level / Sócios", value: 45, color: "#ED1E3F" },
+  { label: "Gerentes / Heads", value: 30, color: "#F75E77" },
+  { label: "Especialistas / Consultores", value: 18, color: "#FFB4BE" },
+  { label: "Outros", value: 7, color: "#FFF5F6" },
 ];
+
+let acc = 0;
+const stops = audience.map((a) => {
+  const start = acc;
+  acc += a.value;
+  return `${a.color} ${start}% ${acc}%`;
+}).join(", ");
+const conic = `conic-gradient(${stops})`;
+
+const mailSubject = encodeURIComponent("Sunset Connections 2026 — Patrocínio");
+const mailBody = encodeURIComponent("Olá Marcone,\n\nGostaria de conversar sobre as cotas de patrocínio do Sunset Connections 2026 — Rio.");
+const mailto = `mailto:marcone@fuerzastudio.com.br?subject=${mailSubject}&body=${mailBody}`;
+const wa = "https://wa.me/5551992300046";
 ---
 
 <Layout
-  title="Sponsorship Deck · Airborne Day"
-  description="Airborne Day Sponsorship Proposal. An invite-only full-day gathering of CEOs and entrepreneurs in New York City."
+  title="Mídia Kit · Sunset Connections 2026 · Rio"
+  description="Mídia kit e cotas de patrocínio do Sunset Connections 2026 — Rio de Janeiro, 08 de Junho."
 >
-  <div class="deck relative overflow-x-hidden">
-    <!-- Background pattern -->
-    <div class="bg-layer pointer-events-none fixed inset-0 overflow-hidden">
-      <div
-        class="absolute inset-0"
-        style="opacity: 0.09; background-image: linear-gradient(var(--deck-accent) 1px, transparent 1px), linear-gradient(90deg, var(--deck-accent) 1px, transparent 1px); background-size: 60px 60px;"
-      ></div>
-      <div class="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-3xl" style="border: 1px solid rgba(67, 110, 182, 0.14);"></div>
-      <div class="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-2xl" style="border: 1px solid rgba(67, 110, 182, 0.09);"></div>
-      <div class="absolute left-1/4 top-1/3 h-[500px] w-[500px] rounded-full blur-[120px]" style="background: rgba(67, 110, 182, 0.06);"></div>
-      <div class="absolute bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full blur-[100px]" style="background: rgba(184, 134, 11, 0.04);"></div>
+  <main class="relative">
+
+    <div class="absolute top-6 left-6 z-20">
+      <a href="/" class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-muted)] hover:text-[var(--color-ivory)] transition">
+        ← Sunset Connections
+      </a>
     </div>
 
-    <!-- Slide 1: Cover -->
-    <section class="slide relative overflow-hidden">
-      <div class="mx-auto max-w-4xl px-6 text-center">
-        <img src="/logos/airborne-logo-blue.svg" alt="Airborne" class="mx-auto mb-8 h-16 w-auto" />
+    <!-- ═══ COVER ═══ -->
+    <section class="relative overflow-hidden min-h-[80vh] flex items-center">
+      <div class="absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[var(--color-accent-dim)] opacity-90"></div>
+      <div class="absolute right-[-140px] top-[60px] h-[420px] w-[420px] rounded-full bg-[var(--color-accent)]"></div>
+      <div class="absolute -right-24 -bottom-48 h-[380px] w-[380px] rounded-full bg-[var(--color-accent-dim)] opacity-80"></div>
+      <div class="absolute right-[80px] -bottom-32 h-[340px] w-[340px] rounded-full bg-[var(--color-accent)]"></div>
 
-        <div class="mb-6 inline-flex rounded-full px-4 py-1.5 text-[11px] font-700 uppercase tracking-wider" style="border: 1px solid rgba(67, 110, 182, 0.3); background: rgba(67, 110, 182, 0.08); color: var(--deck-accent);">
-          Invite Only
-        </div>
-
-        <h1 class="font-display text-5xl font-800 tracking-tight sm:text-7xl" style="color: var(--deck-text);">
-          Airborne Day
-        </h1>
-        <p class="mt-4 font-display text-xl font-600 sm:text-2xl" style="color: var(--deck-accent);">
-          Sponsorship Proposal
-        </p>
-        <div class="mx-auto mt-6 h-px w-24" style="background: linear-gradient(to right, transparent, var(--deck-accent), transparent);"></div>
-
-        <p class="mx-auto mt-8 max-w-xl text-lg leading-relaxed sm:text-xl" style="color: var(--deck-muted);">
-          An invite-only full-day gathering of CEOs and entrepreneurs in New York City.
-        </p>
-
-        <!-- Prominent date block -->
-        <div class="mx-auto mt-10 inline-flex flex-col items-center rounded-2xl px-10 py-6" style="background: rgba(67, 110, 182, 0.06); border: 1px solid rgba(67, 110, 182, 0.12);">
-          <span class="font-display text-3xl font-800 sm:text-4xl" style="color: var(--deck-text);">May 14, 2026</span>
-          <span class="mt-2 font-display text-lg font-600" style="color: var(--deck-accent);">Full Day &middot; New York City</span>
-          <span class="mt-1 text-xs" style="color: var(--deck-light-muted);"><a href="https://maps.google.com/?q=345+Avenue+of+the+Americas,+New+York,+NY" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 transition-opacity hover:opacity-70">Tailor Partners &middot; 345 Avenue of the Americas</a></span>
-        </div>
-
-        <div class="mt-10 flex flex-col items-center gap-3 text-xs" style="color: var(--deck-light-muted);">
-          <span class="uppercase tracking-widest">Organized by</span>
-          <div class="flex items-center gap-6">
-            <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-70">
-              <img src="/logos/airborne-full.svg" alt="Airborne Ventures" class="h-7 w-auto" />
-            </a>
-            <span style="color: var(--deck-border);">&middot;</span>
-            <img src="/logos/confrariatech.svg" alt="ConfrariaTech" class="confraria-logo h-5" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 2: The Event -->
-    <section class="slide relative">
-      <div class="mx-auto max-w-7xl px-6">
-        <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div class="lg:col-span-4">
-            <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--deck-accent);">The Event</span>
-            <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-              Airborne Day
-            </h2>
-          </div>
-          <div class="lg:col-span-7 lg:col-start-6">
-            <p class="text-lg leading-relaxed" style="color: var(--deck-muted);">
-              A curated, invite-only full-day event bringing together CEOs, founders, and entrepreneurs in New York City. Airborne Day is designed for high-signal, direct conversations between people building and leading companies at the frontier of technology and business.
-            </p>
-            <p class="mt-4 font-display text-lg italic" style="color: var(--deck-accent);">Small. Curated. Real.</p>
-
-            <div class="mt-10 grid gap-4 sm:grid-cols-3">
-              <div class="deck-card rounded-xl p-6">
-                <p class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--deck-accent), var(--deck-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1</p>
-                <p class="mt-2 text-base" style="color: var(--deck-light-muted);">Full day of immersion</p>
-              </div>
-              <div class="deck-card rounded-xl p-6">
-                <p class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--deck-accent), var(--deck-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CEOs</p>
-                <p class="mt-2 text-base" style="color: var(--deck-light-muted);">Founders & entrepreneurs</p>
-              </div>
-              <div class="deck-card rounded-xl p-6">
-                <p class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--deck-gold), var(--deck-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NYC</p>
-                <p class="mt-2 text-base" style="color: var(--deck-light-muted);">New York &middot; invite only</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 3: Brazil Week -->
-    <section class="slide relative overflow-hidden" style="background: linear-gradient(135deg, #1a3a2a 0%, var(--deck-accent-dim) 40%, #2a4a1e 100%);">
-      <div class="pointer-events-none absolute -left-20 top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full blur-[100px]" style="background: rgba(0, 156, 59, 0.15);"></div>
-      <div class="pointer-events-none absolute -right-10 -top-10 h-[250px] w-[250px] rounded-full blur-[90px]" style="background: rgba(255, 200, 0, 0.1);"></div>
-      <div class="pointer-events-none absolute bottom-0 left-1/3 h-[200px] w-[400px] rounded-full blur-[80px]" style="background: rgba(0, 156, 59, 0.08);"></div>
-
-      <div class="relative mx-auto max-w-3xl px-6 text-center">
-        <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: rgba(0, 200, 80, 0.6);">Part of</span>
-        <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="background: linear-gradient(135deg, #ffffff, #a8e6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-          Brazil Week NYC
-        </h2>
-        <div class="mx-auto mt-4 h-px w-16" style="background: linear-gradient(to right, rgba(0, 156, 59, 0.6), rgba(255, 200, 0, 0.4), transparent);"></div>
-
-        <p class="mt-6 text-lg leading-relaxed" style="color: rgba(255,255,255,0.75);">
-          Airborne Day is part of Brazil Week — a series of high-level events in New York City promoting Brazilian business, innovation, and technology. Brazil Week brings together government officials, investors, and entrepreneurs to discuss economic opportunities and showcase Brazilian innovation.
-        </p>
-
-        <div class="mt-8 inline-flex flex-col items-center rounded-xl px-6 py-4" style="background: rgba(0, 156, 59, 0.1); border: 1px solid rgba(0, 156, 59, 0.2);">
-          <span class="font-display text-sm font-600 uppercase tracking-wider" style="color: rgba(255, 200, 0, 0.6);">May 2026</span>
-          <span class="mt-1 font-display text-lg font-800 text-white">New York City</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 4: The Format -->
-    <section class="slide relative">
-      <div class="mx-auto max-w-5xl px-6">
-        <div class="text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--deck-accent);">Schedule</span>
-          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-            The Format
-          </h2>
-        </div>
-
-        <div class="mt-12 mx-auto max-w-lg">
-          <div class="deck-card rounded-xl p-8" style="border-left: 4px solid var(--deck-accent);">
-            <h3 class="font-display text-xl font-700" style="color: var(--deck-text);">May 14th &middot; Full Day</h3>
-            <p class="mt-1 text-sm font-600" style="color: var(--deck-accent);">New York City</p>
-            <p class="mt-1 text-xs" style="color: var(--deck-light-muted);"><a href="https://maps.google.com/?q=345+Avenue+of+the+Americas,+New+York,+NY" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 transition-opacity hover:opacity-70">Tailor Partners &middot; 345 Avenue of the Americas</a></p>
-            <ul class="mt-6 space-y-3">
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--deck-accent);"></span>
-                Networking & welcome reception
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--deck-accent);"></span>
-                Talks from industry leaders and founders
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--deck-accent);"></span>
-                CEO & entrepreneur roundtables
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--deck-accent);"></span>
-                Space for direct conversations
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 4: Why Sponsor? -->
-    <section class="slide relative">
-      <div class="mx-auto max-w-5xl px-6">
-        <div class="text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--deck-accent);">Value Proposition</span>
-          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-            Why Sponsor?
-          </h2>
-          <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--deck-muted);">
-            Direct access to a highly qualified group of CEOs and entrepreneurs — in a private, curated environment.
-          </p>
-        </div>
-
-        <div class="mt-12 grid gap-6 sm:grid-cols-2">
-          <div class="deck-card rounded-xl p-8">
-            <span class="text-3xl">&#x1F465;</span>
-            <h3 class="mt-4 font-display text-lg font-700" style="color: var(--deck-text);">Qualified audience</h3>
-            <p class="mt-2 text-base leading-relaxed" style="color: var(--deck-light-muted);">
-              CEOs, founders, and entrepreneurs building at the frontier of technology and business.
-            </p>
-          </div>
-          <div class="deck-card rounded-xl p-8">
-            <span class="text-3xl">&#x1F91D;</span>
-            <h3 class="mt-4 font-display text-lg font-700" style="color: var(--deck-text);">Real access</h3>
-            <p class="mt-2 text-base leading-relaxed" style="color: var(--deck-light-muted);">
-              Small, curated format — no massive stages. Genuine conversations with decision-makers.
-            </p>
-          </div>
-          <div class="deck-card rounded-xl p-8">
-            <span class="text-3xl">&#x1F4D6;</span>
-            <h3 class="mt-4 font-display text-lg font-700" style="color: var(--deck-text);">The Playbook</h3>
-            <p class="mt-2 text-base leading-relaxed" style="color: var(--deck-light-muted);">
-              Your brand featured in the event Playbook — a digital and printed guide distributed to all attendees.
-            </p>
-          </div>
-          <div class="deck-card rounded-xl p-8">
-            <span class="text-3xl">&#x2B50;</span>
-            <h3 class="mt-4 font-display text-lg font-700" style="color: var(--deck-text);">Premium brand association</h3>
-            <p class="mt-2 text-base leading-relaxed" style="color: var(--deck-light-muted);">
-              Your name tied to one of the most exclusive gatherings of CEOs and entrepreneurs in New York City.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 5: Sponsorship Tiers -->
-    <section class="slide relative">
-      <div class="mx-auto max-w-5xl px-6">
-        <div class="text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--deck-accent);">Investment</span>
-          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-            Sponsorship Tiers
-          </h2>
-        </div>
-
-        <div class="mt-12 grid gap-6 sm:grid-cols-2">
-          <!-- Silver -->
-          <div class="deck-card rounded-xl p-8">
-            <h3 class="font-display text-lg font-700 uppercase tracking-wider" style="color: var(--deck-light-muted);">Silver</h3>
-            <p class="mt-3 font-display text-4xl font-800" style="color: var(--deck-text);">$5,000 <span class="text-base font-500" style="color: var(--deck-light-muted);">USD</span></p>
-            <div class="mt-6 h-px w-full" style="background: linear-gradient(to right, var(--deck-border), transparent);"></div>
-            <ul class="mt-6 space-y-3">
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Logo on website and event materials
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                1 ticket to the event
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Mention in pre and post-event communications
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Brand featured in the Playbook (digital + printed)
-              </li>
-            </ul>
-          </div>
-
-          <!-- Gold -->
-          <div class="rounded-xl p-8" style="background: var(--deck-surface); border: 1px solid rgba(184, 134, 11, 0.3); box-shadow: 0 0 30px rgba(184, 134, 11, 0.06);">
-            <div class="mb-4 inline-flex rounded-full px-3 py-1 text-[10px] font-700 uppercase tracking-wider" style="border: 1px solid rgba(184, 134, 11, 0.3); background: rgba(184, 134, 11, 0.08); color: var(--deck-gold);">
-              Recommended
-            </div>
-            <h3 class="font-display text-lg font-700 uppercase tracking-wider" style="color: var(--deck-gold);">Gold</h3>
-            <p class="mt-3 font-display text-4xl font-800" style="color: var(--deck-text);">$10,000 <span class="text-base font-500" style="color: var(--deck-light-muted);">USD</span></p>
-            <div class="mt-6 h-px w-full" style="background: linear-gradient(to right, rgba(184, 134, 11, 0.3), transparent);"></div>
-            <ul class="mt-6 space-y-3">
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Everything in Silver
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                10-min sponsored talk at the event
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Co-branding on a specific session
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Post-event attendee list
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Featured speaking slot at the Download event in Brazil
-              </li>
-              <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-                <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Visibility at the Download event in Brazil
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 6: The Download Event in Brazil -->
-    <section class="slide relative">
-      <div class="mx-auto max-w-3xl px-6 text-center">
-        <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--deck-accent);">Post-Event</span>
-        <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-          The Download Event
-        </h2>
-        <p class="mt-2 font-display text-xl font-600" style="color: var(--deck-accent);">in Brazil</p>
-
-        <p class="mt-8 text-lg leading-relaxed" style="color: var(--deck-muted);">
-          After Airborne Day, we bring learnings and connections back to Brazil in an exclusive event for the local tech ecosystem — within 60 days of the main event.
-        </p>
-
-        <ul class="mx-auto mt-10 max-w-md space-y-4 text-left">
-          <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-            <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-            Speakers and content straight from New York
-          </li>
-          <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-            <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-            Access to the network of CEOs and entrepreneurs from the event
-          </li>
-          <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-            <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-            Brand visibility across the Brazilian tech ecosystem
-          </li>
-          <li class="flex items-start gap-3 text-base" style="color: var(--deck-muted);">
-            <svg class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--deck-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-            Exclusive to Gold sponsors ($10k)
-          </li>
-        </ul>
-
-        <div class="mt-10">
-          <span class="inline-flex rounded-full px-5 py-2 text-xs font-700 uppercase tracking-wider" style="border: 1px solid rgba(184, 134, 11, 0.3); background: rgba(184, 134, 11, 0.08); color: var(--deck-gold);">
-            Gold Tier Exclusive
+      <div class="relative mx-auto w-full max-w-6xl px-6 py-24 sm:py-28">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Mídia kit · Cotas de patrocínio</p>
+        <h1 class="mt-6 font-display font-extrabold uppercase leading-[0.95] text-[clamp(2.5rem,8vw,6.5rem)] tracking-tight animate-hero-reveal">
+          <span class="block">Sunset</span>
+          <span class="flex items-center gap-4 md:gap-6">
+            <span>Connections</span>
+            <svg viewBox="0 0 120 60" class="inline-block h-[0.7em] w-auto flex-shrink-0" aria-hidden="true">
+              <path d="M 10 55 A 40 40 0 0 1 90 55 Z" fill="var(--color-accent)" />
+              <path d="M 60 55 A 40 40 0 0 1 110 55 Z" fill="var(--color-accent-dim)" opacity="0.9" />
+            </svg>
           </span>
+        </h1>
+        <p class="mt-8 font-display font-semibold text-2xl sm:text-3xl text-[var(--color-ivory)]">
+          08 de Junho de 2026 · Rio de Janeiro
+        </p>
+        <p class="mt-4 max-w-xl text-[var(--color-muted)]">
+          Tudo o que você precisa saber para colocar sua marca dentro da sala.
+        </p>
+
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a href="#cotas" class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--color-accent-dim)]">
+            Ver cotas de patrocínio
+          </a>
+          <a href="#contato" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-ivory)]/30 px-6 py-3 font-semibold transition hover:border-[var(--color-ivory)]">
+            Falar com o time
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Slide 7: The Organizers -->
-    <section class="slide relative">
-      <div class="mx-auto max-w-4xl px-6">
-        <div class="text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--deck-accent);">Leadership</span>
-          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-            The Organizers
-          </h2>
-          <p class="mt-4 text-lg" style="color: var(--deck-muted);">The team behind Airborne Day.</p>
+    <!-- ═══ PROPOSTA ═══ -->
+    <section class="relative border-y border-[var(--color-edge)]/50 py-24 sm:py-32">
+      <div class="mx-auto max-w-5xl px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Proposta do evento</p>
+        <h2 class="mt-4 font-display font-bold text-4xl sm:text-5xl leading-tight">
+          Mais do que um evento.<br />
+          <span class="text-[var(--color-muted)]">Um ponto de encontro para quem constrói o futuro.</span>
+        </h2>
+        <div class="mt-10 grid gap-8 text-lg leading-relaxed text-[var(--color-ivory)]/85 sm:grid-cols-2">
+          <p>
+            O Sunset Connections é um evento exclusivo de networking que conecta
+            empreendedores, investidores, executivos e líderes do ecossistema de
+            inovação em um ambiente descontraído e altamente estratégico.
+          </p>
+          <p>
+            Mais do que um evento, é um ponto de encontro para gerar conexões reais,
+            negócios e oportunidades, reunindo pessoas que estão construindo o futuro.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ O QUE É / O QUE ACONTECE ═══ -->
+    <section class="relative overflow-hidden bg-[var(--color-accent)] py-24 sm:py-32 text-[var(--color-midnight)]">
+      <div class="absolute -right-32 -top-32 h-[360px] w-[360px] rounded-full bg-[var(--color-accent-dim)] opacity-70"></div>
+      <div class="absolute -left-24 -bottom-24 h-[280px] w-[280px] rounded-full bg-[var(--color-accent-dim)] opacity-60"></div>
+
+      <div class="relative mx-auto max-w-6xl px-6 grid gap-12 md:grid-cols-2">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.3em] opacity-75">O que é</p>
+          <h3 class="mt-3 font-display font-bold text-3xl sm:text-4xl">
+            Um encontro presencial premium, com curadoria de convidados.
+          </h3>
+          <ul class="mt-8 space-y-3 text-lg">
+            {[
+              "Networking de alto nível",
+              "Geração de negócios",
+              "Conexão entre startups, empresas e investidores",
+              "Troca de experiências entre líderes",
+            ].map((it) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--color-midnight)] flex-shrink-0"></span>
+                {it}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-8 text-base italic opacity-80">
+            Tudo em um ambiente leve, que favorece conversas próximas e conexões genuínas.
+          </p>
         </div>
 
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 mx-auto max-w-lg">
-          {organizers.map((person) => (
-            <div class="deck-card flex flex-col items-center rounded-xl p-6 text-center">
-              {person.image ? (
-                <img
-                  src={person.image}
-                  alt={person.name}
-                  class="h-20 w-20 rounded-full object-cover"
-                  style={`border: 1px solid var(--deck-border);`}
-                />
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.3em] opacity-75">O que acontece</p>
+          <h3 class="mt-3 font-display font-bold text-3xl sm:text-4xl">
+            Conexões estratégicas do começo ao fim.
+          </h3>
+          <ul class="mt-8 space-y-3 text-lg">
+            {[
+              "Conexões estratégicas entre participantes",
+              "Apresentação de startups e negócios",
+              "Interação direta com investidores",
+              "Experiência social + profissional (networking qualificado)",
+              "Ambiente propício para parcerias e novos projetos",
+            ].map((it) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--color-midnight)] flex-shrink-0"></span>
+                {it}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ POR QUE FAZEMOS ═══ -->
+    <section class="py-24 sm:py-32">
+      <div class="mx-auto max-w-5xl px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Por que fazemos</p>
+        <h2 class="mt-4 font-display font-bold text-4xl sm:text-5xl leading-tight">
+          O ecossistema de inovação cresce<br />
+          <span class="text-[var(--color-accent)]">através de conexões.</span>
+        </h2>
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Pessoas certas", "Aproximar quem precisa estar perto — no momento certo."],
+            ["Negócios & capital", "Facilitar investimentos e oportunidades comerciais."],
+            ["Ecossistema", "Fortalecer a rede de startups brasileiras e latino-americanas."],
+            ["Oportunidade orgânica", "Criar o ambiente onde coisas acontecem naturalmente."],
+          ].map(([t, d]) => (
+            <div class="rounded-2xl border border-[var(--color-edge)] bg-[var(--color-surface)]/40 p-6 transition hover:border-[var(--color-accent)]/50">
+              <h3 class="font-display font-semibold text-xl text-[var(--color-ivory)]">{t}</h3>
+              <p class="mt-3 text-sm text-[var(--color-muted)]">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ NÚMEROS ═══ -->
+    <section class="relative border-y border-[var(--color-edge)]/50 py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
+          Sunset Connections 2026 — Porto Alegre/RS
+        </p>
+        <h2 class="mt-4 font-display font-bold text-4xl sm:text-5xl">Os números da última edição.</h2>
+
+        <div class="mt-14 grid gap-6 sm:grid-cols-3">
+          <div class="rounded-2xl border border-[var(--color-edge)] p-8">
+            <p class="font-display font-extrabold text-6xl sm:text-7xl text-[var(--color-accent)] leading-none">377</p>
+            <p class="mt-4 font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-muted)]">Inscritos</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--color-edge)] p-8">
+            <p class="font-display font-extrabold text-6xl sm:text-7xl text-[var(--color-accent)] leading-none">4</p>
+            <p class="mt-4 font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-muted)]">Países</p>
+            <p class="mt-2 text-sm text-[var(--color-ivory)]/80">Brasil · Peru · EUA · Rússia</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--color-edge)] p-8">
+            <p class="font-display font-extrabold text-6xl sm:text-7xl text-[var(--color-accent)] leading-none">6</p>
+            <p class="mt-4 font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-muted)]">Estados</p>
+            <p class="mt-2 text-sm text-[var(--color-ivory)]/80">RS · SC · PR · SP · RJ · RN</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PERFIL DO PÚBLICO ═══ -->
+    <section class="py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-6 grid gap-16 md:grid-cols-2 items-center">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Perfil do público</p>
+          <h2 class="mt-4 font-display font-bold text-4xl sm:text-5xl leading-tight">
+            Liderança e decisão<br />
+            <span class="text-[var(--color-muted)]">numa sala só.</span>
+          </h2>
+          <p class="mt-6 text-lg text-[var(--color-ivory)]/85">
+            75% do público é composto por C-Levels, sócios, gerentes e heads — pessoas
+            que tomam decisões de crescimento, investimento e expansão.
+          </p>
+          <ul class="mt-10 space-y-4">
+            {audience.map((a) => (
+              <li class="flex items-center gap-4">
+                <span class="h-3 w-3 rounded-full flex-shrink-0" style={`background-color: ${a.color}`}></span>
+                <span class="font-display font-semibold text-lg w-14 text-right tabular-nums">{a.value}%</span>
+                <span class="text-[var(--color-ivory)]/85">{a.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="relative aspect-square w-full max-w-[380px]">
+            <div class="absolute inset-0 rounded-full" style={`background: ${conic};`}></div>
+            <div class="absolute inset-[18%] rounded-full bg-[var(--color-midnight)] flex flex-col items-center justify-center text-center p-6">
+              <p class="font-display font-extrabold text-5xl text-[var(--color-accent)] leading-none">75%</p>
+              <p class="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-muted)]">Liderança<br/>& decisão</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ RESULTADO ═══ -->
+    <section class="relative overflow-hidden bg-[var(--color-accent)] text-[var(--color-midnight)] py-24 sm:py-32">
+      <div class="absolute -right-40 -top-32 h-[380px] w-[380px] rounded-full bg-[var(--color-accent-dim)] opacity-60"></div>
+      <div class="absolute -left-32 -bottom-40 h-[340px] w-[340px] rounded-full bg-[var(--color-midnight)] opacity-20"></div>
+
+      <div class="relative mx-auto max-w-5xl px-6 text-center">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] opacity-75">Resultado real</p>
+        <h2 class="mt-6 font-display font-extrabold text-5xl sm:text-7xl lg:text-8xl leading-[0.95]">
+          R$ 6,5 milhões
+        </h2>
+        <p class="mt-6 text-2xl sm:text-3xl font-display font-semibold">
+          captados em investimento — a partir de conexões do Sunset.
+        </p>
+        <p class="mt-4 text-base opacity-75">
+          Incluindo a rodada da Grit, fechada com investidores presentes no evento.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ PALESTRANTES ═══ -->
+    <section class="py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Palestrantes · edição anterior</p>
+        <h2 class="mt-4 font-display font-bold text-4xl sm:text-5xl">Quem já passou pelo palco.</h2>
+
+        {/* TODO: replace initials placeholders with real photos in /public/speakers/ */}
+        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {speakers.map((s) => (
+            <div class="rounded-2xl border border-[var(--color-edge)] p-6 transition hover:border-[var(--color-accent)]/50">
+              <div class="aspect-square w-full rounded-xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-dim)] flex items-center justify-center">
+                <span class="font-display font-extrabold text-5xl text-white tracking-tight">{s.initials}</span>
+              </div>
+              <h3 class="mt-5 font-display font-semibold text-xl">{s.name}</h3>
+              <p class="mt-1 text-sm text-[var(--color-muted)]">{s.org}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PARCEIROS ═══ -->
+    <section class="border-y border-[var(--color-edge)]/50 py-20">
+      <div class="mx-auto max-w-6xl px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] text-center">Parceiros · Sunset Porto Alegre 2026</p>
+        {/* TODO: add logo SVGs for Fuerza Studio, EBB, GestãoRH, Select to /public/logos/ */}
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          {partners.map((p) => (
+            <div class="flex items-center justify-center rounded-xl border border-[var(--color-edge)] bg-[var(--color-surface)]/40 px-6 py-4 min-h-[72px] min-w-[160px]">
+              {p.logo ? (
+                <img src={p.logo} alt={p.name} class="h-8 w-auto opacity-90" />
               ) : (
-                <div class="flex h-20 w-20 items-center justify-center rounded-full" style="border: 1px solid var(--deck-border); background: var(--deck-raised);">
-                  <span class="font-display text-lg font-700" style="color: var(--deck-accent);">{person.initials}</span>
-                </div>
+                <span class="font-display font-bold text-sm uppercase tracking-wider text-[var(--color-ivory)]/80">
+                  {p.name}
+                </span>
               )}
-              <h3 class="mt-5 font-display text-lg font-700" style="color: var(--deck-text);">{person.name}</h3>
-              <p class="mt-1 text-sm" style="color: var(--deck-accent);">{person.company}</p>
-              <a
-                href={person.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mt-4 inline-flex items-center gap-1.5 text-sm transition-opacity hover:opacity-70"
-                style="color: var(--deck-light-muted);"
-              >
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                LinkedIn
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DIFERENCIAIS ═══ -->
+    <section class="relative overflow-hidden bg-[var(--color-accent)] text-[var(--color-midnight)] py-24 sm:py-32">
+      <div class="absolute right-[-80px] top-[-80px] h-[220px] w-[220px] rounded-full bg-[var(--color-accent-dim)] opacity-70"></div>
+      <div class="absolute left-[-60px] bottom-[-60px] h-[180px] w-[180px] rounded-full bg-[var(--color-accent-dim)] opacity-60"></div>
+
+      <div class="relative mx-auto max-w-5xl px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] opacity-75">Diferenciais</p>
+        <h2 class="mt-4 font-display font-bold text-4xl sm:text-5xl">Por que o Sunset é diferente.</h2>
+
+        <div class="mt-14 grid gap-4 sm:grid-cols-2">
+          {[
+            ["Curadoria real", "Não é evento aberto — quem está na sala foi convidado."],
+            ["Networking qualificado", "Quase toda conversa vira parceria, cliente ou rodada."],
+            ["Ambiente premium", "Locais escolhidos para favorecer presença e conexão."],
+            ["Negócios de verdade", "Já geramos R$ 6,5M em captação — e muito mais em parcerias."],
+            ["Formato leve", "Sem palestras engessadas. Sem cerimônia. Só o que importa."],
+          ].map(([t, d]) => (
+            <div class="rounded-2xl border border-[var(--color-midnight)]/30 bg-[var(--color-midnight)]/5 p-6">
+              <h3 class="font-display font-bold text-xl">{t}</h3>
+              <p class="mt-2 text-sm opacity-85">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ COTAS ═══ -->
+    <section id="cotas" class="py-24 sm:py-32 scroll-mt-8">
+      <div class="mx-auto max-w-6xl px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Cotas de patrocínio</p>
+        <h2 class="mt-4 font-display font-bold text-4xl sm:text-5xl leading-tight">
+          08 de Junho de 2026<br />
+          <span class="text-[var(--color-accent)]">Rio de Janeiro.</span>
+        </h2>
+        <p class="mt-6 max-w-2xl text-lg text-[var(--color-ivory)]/85">
+          Cinco formatos desenhados para marcas que querem estar perto de quem movimenta o ecossistema.
+          Escolha o que faz sentido para o seu posicionamento.
+        </p>
+
+        <div class="mt-14 grid gap-6 lg:grid-cols-3">
+          {tiers.map((t) => (
+            <div class={`relative rounded-2xl border p-8 transition ${
+              t.highlight
+                ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-[0_0_60px_-20px_var(--color-accent)]"
+                : "border-[var(--color-edge)] bg-[var(--color-surface)]/30 hover:border-[var(--color-accent)]/40"
+            }`}>
+              {t.highlight && (
+                <span class="absolute -top-3 left-8 rounded-full bg-[var(--color-accent)] px-3 py-1 text-xs font-mono uppercase tracking-widest text-white">
+                  Recomendado
+                </span>
+              )}
+              <div class="flex items-baseline justify-between gap-4">
+                <h3 class="font-display font-extrabold text-2xl uppercase tracking-wide">{t.name}</h3>
+                {t.subtitle && (
+                  <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted)]">{t.subtitle}</span>
+                )}
+              </div>
+              <p class="mt-4 font-display font-extrabold text-4xl text-[var(--color-accent)]">{t.price}</p>
+              <p class="mt-2 text-sm text-[var(--color-ivory)]/80">{t.tagline}</p>
+
+              <ul class="mt-6 space-y-2.5 text-sm">
+                {t.perks.map((p) => (
+                  <li class="flex items-start gap-2.5">
+                    <span class="mt-1.5 h-1 w-1 rounded-full bg-[var(--color-accent)] flex-shrink-0"></span>
+                    <span class="text-[var(--color-ivory)]/85">{p}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a href={mailto}
+                class="mt-8 block rounded-full border border-[var(--color-accent)] px-5 py-2.5 text-center text-sm font-semibold text-[var(--color-accent)] transition hover:bg-[var(--color-accent)] hover:text-white">
+                Quero esta cota
               </a>
             </div>
           ))}
         </div>
-
-        <div class="mt-8 text-center">
-          <p class="text-sm" style="color: var(--deck-light-muted);">
-            Organized by
-            <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="font-600 transition-opacity hover:opacity-70" style="color: var(--deck-muted);">Airborne Ventures</a>
-            &
-            <span class="font-600" style="color: var(--deck-muted);">ConfrariaTech</span>
-          </p>
-        </div>
       </div>
     </section>
 
-    <!-- Slide 8: Ecosystem -->
-    <section class="slide relative">
-      <div class="mx-auto max-w-4xl px-6">
-        <div class="text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--deck-accent);">Ecosystem</span>
-          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-            Who's in the Room
-          </h2>
-          <p class="mt-4 text-lg" style="color: var(--deck-muted);">
-            Companies and leaders attending, supporting, and shaping Airborne Day.
-          </p>
-        </div>
+    <!-- ═══ CONTATO ═══ -->
+    <section id="contato" class="relative overflow-hidden py-28 sm:py-36 scroll-mt-8">
+      <div class="absolute -left-32 top-[10%] h-[320px] w-[320px] rounded-full bg-[var(--color-accent)] opacity-90"></div>
+      <div class="absolute left-[120px] top-[30%] h-[240px] w-[240px] rounded-full bg-[var(--color-accent-dim)] opacity-80"></div>
+      <div class="absolute right-[-80px] bottom-[-60px] h-[280px] w-[280px] rounded-full bg-[var(--color-accent-dim)] opacity-70"></div>
 
-        <div class="mt-12 flex flex-wrap justify-center gap-4">
-          {ecosystem.map((company) => (
-            company.url ? (
-              <a href={company.url} target="_blank" rel="noopener noreferrer" class="flex h-20 items-center justify-center rounded-xl px-7 transition-opacity hover:opacity-70" style="background: var(--deck-surface); border: 1px solid var(--deck-border);">
-                {company.logo ? (
-                  <img src={company.logo} alt={company.name} class={`h-10 max-w-[120px] object-contain ${company.noFilter ? '' : 'ecosystem-logo'}`} />
-                ) : (
-                  <span class="font-display text-base font-700" style="color: var(--deck-text);">{company.name}</span>
-                )}
-              </a>
-            ) : (
-              <div class="flex h-20 items-center justify-center rounded-xl px-7" style="background: var(--deck-surface); border: 1px solid var(--deck-border);">
-                {company.logo ? (
-                  <img src={company.logo} alt={company.name} class={`h-10 max-w-[120px] object-contain ${company.noFilter ? '' : 'ecosystem-logo'}`} />
-                ) : (
-                  <span class="font-display text-base font-700" style="color: var(--deck-text);">{company.name}</span>
-                )}
-              </div>
-            )
-          ))}
-          <div class="flex h-20 items-center justify-center rounded-xl px-7" style="background: rgba(67, 110, 182, 0.04); border: 1px solid rgba(67, 110, 182, 0.1);">
-            <span class="font-display text-base font-600" style="color: var(--deck-light-muted);">& more</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 9: Call to Action -->
-    <section class="slide relative">
-      <div class="glow pointer-events-none absolute left-1/4 top-1/3 h-[500px] w-[500px] rounded-full blur-[120px]" style="background: rgba(67, 110, 182, 0.05);"></div>
-
-      <div class="mx-auto max-w-3xl px-6 text-center">
-        <h2 class="font-display text-3xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--deck-text);">
-          Let's build this together?
+      <div class="relative mx-auto max-w-5xl px-6">
+        <h2 class="font-display font-extrabold text-5xl sm:text-7xl lg:text-8xl leading-[0.95]">
+          Vamos começar a<br />
+          <span class="text-[var(--color-accent)]">mudança</span> juntos?
         </h2>
-        <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed" style="color: var(--deck-muted);">
-          Sponsorship spots are limited. Get in touch to secure your tier.
-        </p>
 
-        <div class="mx-auto mt-10 grid max-w-md gap-4 sm:grid-cols-2">
-          <div class="deck-card rounded-xl p-6 text-center">
-            <p class="font-display text-sm font-600 uppercase tracking-wider" style="color: var(--deck-light-muted);">Silver</p>
-            <p class="mt-2 font-display text-2xl font-800" style="color: var(--deck-text);">$5,000 <span class="text-sm font-500" style="color: var(--deck-light-muted);">USD</span></p>
-          </div>
-          <div class="rounded-xl p-6 text-center" style="background: var(--deck-surface); border: 1px solid rgba(184, 134, 11, 0.3); box-shadow: 0 0 20px rgba(184, 134, 11, 0.06);">
-            <p class="font-display text-sm font-600 uppercase tracking-wider" style="color: var(--deck-gold);">Gold</p>
-            <p class="mt-2 font-display text-2xl font-800" style="color: var(--deck-text);">$10,000 <span class="text-sm font-500" style="color: var(--deck-light-muted);">USD</span></p>
-          </div>
-        </div>
+        <div class="mt-14 inline-block rounded-2xl border border-[var(--color-edge)] bg-[var(--color-surface)]/60 p-8 backdrop-blur">
+          <p class="font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-muted)]">Contato direto</p>
+          <p class="mt-3 font-display font-bold text-2xl">Marcone Ruperti</p>
+          <p class="text-sm text-[var(--color-muted)]">Diretor de Eventos · Fuerza Studio</p>
 
-        <div class="mt-12 flex flex-col items-center gap-2 text-sm" style="color: var(--deck-light-muted);">
-          <span class="font-display font-700" style="color: var(--deck-text);">May 14, 2026</span>
-          <span>New York City &middot; Full Day</span>
-          <span class="text-xs" style="color: var(--deck-light-muted);"><a href="https://maps.google.com/?q=345+Avenue+of+the+Americas,+New+York,+NY" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 transition-opacity hover:opacity-70">Tailor Partners &middot; 345 Avenue of the Americas</a></span>
-          <div class="mt-2 flex items-center gap-3">
-            <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="font-600 transition-opacity hover:opacity-70" style="color: var(--deck-accent);">airborne.ventures</a>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href={mailto} class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-dim)]">
+              ✉ marcone@fuerzastudio.com.br
+            </a>
+            <a href={wa} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-ivory)]/30 px-5 py-3 text-sm font-semibold transition hover:border-[var(--color-ivory)]">
+              WhatsApp · (51) 9 9230-0046
+            </a>
+            <a href="tel:+5551992300046" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-ivory)]/30 px-5 py-3 text-sm font-semibold transition hover:border-[var(--color-ivory)]">
+              ☏ Ligar
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-  </div>
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="border-t border-[var(--color-edge)]/60 py-10">
+      <div class="mx-auto max-w-6xl px-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-center gap-3">
+          <svg viewBox="0 0 60 30" class="h-6 w-auto" aria-hidden="true">
+            <path d="M 5 28 A 20 20 0 0 1 45 28 Z" fill="var(--color-accent)" />
+            <path d="M 30 28 A 20 20 0 0 1 55 28 Z" fill="var(--color-accent-dim)" opacity="0.9" />
+          </svg>
+          <span class="font-display font-bold uppercase tracking-wider text-sm">Sunset Connections</span>
+        </div>
+        <div class="flex items-center gap-6 text-xs text-[var(--color-muted)]">
+          <a href="/" class="hover:text-[var(--color-ivory)] transition">← Voltar ao início</a>
+          <span>© 2026 · Realização: Fuerza Studio</span>
+        </div>
+      </div>
+    </footer>
 
-  <style>
-    .deck {
-      --deck-bg: #ECEDF5;
-      --deck-surface: #F5F6FA;
-      --deck-raised: #FFFFFF;
-      --deck-border: #D4D6E0;
-      --deck-text: #2D3042;
-      --deck-muted: #3D4055;
-      --deck-light-muted: #6B6E82;
-      --deck-accent: #436eb6;
-      --deck-accent-dim: #224d7e;
-      --deck-gold: #9A7209;
-    }
-
-    .deck {
-      background-color: var(--deck-bg);
-    }
-
-    .deck-card {
-      background: var(--deck-surface);
-      border: 1px solid var(--deck-border);
-    }
-
-    .confraria-logo,
-    .ecosystem-logo {
-      filter: brightness(0.25);
-    }
-
-    .slide {
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
-
-    @media print {
-      .slide {
-        page-break-after: always;
-        min-height: 100vh;
-      }
-      .glow,
-      .bg-layer {
-        display: none;
-      }
-      body {
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-      }
-    }
-  </style>
+  </main>
 </Layout>
